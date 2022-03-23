@@ -176,19 +176,19 @@ public class Player implements Comparable<Player> {
             switch (p) {
                 
                 case 1:
-                    pos = Position.DEFENSE;
+                    pos = Position.BATSMAN;
                     break;
                     
                 case 2:
-                    pos = Position.GOALKEEPER;
+                    pos = Position.WICKETKEEPER;
                     break;
                     
                 case 3:
-                    pos = Position.MIDFIELDER;
+                    pos = Position.ALL_ROUNDER;
                     break;
                     
                 case 4:
-                    pos = Position.STRIKER;
+                    pos = Position.BOWLER;
                     break;  
             }
 
