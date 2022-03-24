@@ -1,5 +1,12 @@
 import java.io.File;
+
+import javax.swing.text.Position;
+
 import javafx.scene.image.Image;
+
+
+
+
 
 /**
  *
@@ -169,19 +176,19 @@ public class Player implements Comparable<Player> {
             switch (p) {
                 
                 case 1:
-                    pos = Position.DEFENSE;
+                    pos = Position.BATSMAN;
                     break;
                     
                 case 2:
-                    pos = Position.GOALKEEPER;
+                    pos = Position.WICKETKEEPER;
                     break;
                     
                 case 3:
-                    pos = Position.MIDFIELDER;
+                    pos = Position.ALL_ROUNDER;
                     break;
                     
                 case 4:
-                    pos = Position.STRIKER;
+                    pos = Position.BOWLER;
                     break;  
             }
 
@@ -214,13 +221,11 @@ public class Player implements Comparable<Player> {
         Name fn = new Name(firstName, lastName);
 
         // create statistics instance
-        Statistics st = new Statistics(gamesPlayed, goals, assist, shotToGoal,
-                tackles, wrongPass, faults, yellowCard,
-                redCard);
+        // Statistics st = new Statistics(Totalruns, Battingpos, Teamname, Jerseynumber, Currentrunrate, Battinglineupnumber)
 
         //create a player instance
-        Player pl = new Player(fn, num, weight, height, age, image, pathName,
-                pos, st);
+        // Player pl = new Player(fn, num, weight, height, age, image, pathName,
+        //         pos, st);
 
         return pl;
     }

@@ -1,10 +1,9 @@
 /**
  * Enum with players positions.
  * 
- * @author Kimio Nishin and Saniya Farishta
+ * @author Kimio Nishino and Saniya Farishta
  */
-public enum Positions {
-    
+public enum Position {
     BATSMAN,
     WICKETKEEPER,
     BOWLER,
