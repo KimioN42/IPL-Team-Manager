@@ -32,7 +32,7 @@ public class MainProject extends Application {
         //Opening database file
         DatFileHandler fileReader = new DatFileHandler();
         ArrayList<Player> players = new ArrayList<>();
-        players = fileReader.saveFileAsPlayers("datfiles/database.dat");
+        players = fileReader.saveFileAsPlayers("database.dat");
         for (Player player : players) {
             player.toString();
         }
@@ -51,7 +51,7 @@ public class MainProject extends Application {
         teamNameManagement.setStyle("-fx-font: 20 Verdana;");
 
         //Getting logo from imgs folder
-        Image logo = new Image("imgs/RCB_Logo.png");
+        Image logo = new Image("./imgs/RCB_Logo.png");
         ImageView view = new ImageView(logo);
         view.setFitWidth(100);
         view.setPreserveRatio(true);

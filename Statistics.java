@@ -14,7 +14,7 @@ public class Statistics {
     }
 
     /**
-     * constructor with all player`s data members
+     * constructor with all player's data members
      *
      * @param Totalruns total number of runs
      * @param Battingpos batting position of player

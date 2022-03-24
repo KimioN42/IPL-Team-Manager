@@ -141,6 +141,7 @@ public class Player implements Comparable<Player> {
      * @return
      */
     public static Player valueOf(String s) {
+        System.out.println("Getting the player from this string: " + s);
 
         // temporary array to hold strings from input
         String[] temp;
