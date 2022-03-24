@@ -32,7 +32,7 @@ public class MainProject extends Application {
         //Opening database file
         DatFileHandler fileReader = new DatFileHandler();
         ArrayList<Player> players = new ArrayList<>();
-        players = fileReader.saveFileAsPlayers("database.dat");
+        players = fileReader.saveFileAsPlayers("./Java2-Project-Team-Manager/database.dat");
         for (Player player : players) {
             player.toString();
         }

@@ -1,4 +1,6 @@
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -11,12 +13,9 @@ public class DatFileHandler {
     public ArrayList<Player> saveFileAsPlayers(String filepath) {
         file = new File(filepath);
         ArrayList<Player> players = new ArrayList<>();
-        boolean fileIsNotLocked = file.renameTo(file);
-        System.out.println("File is not locked: " + fileIsNotLocked);
         try{
             System.out.println("Looking for file in " + filepath);
             Scanner scan = new Scanner(file);
-            System.out.println("It reached this line");
             while(scan.hasNextLine()) {
                 players.add(Player.valueOf(scan.nextLine()));
             }
