@@ -1,45 +1,111 @@
+import java.util.ArrayList;
+
 import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
- *
+ * Main class for the Team Manager project.
+ * The main method from which the application starts, is located
+ * in this class.
  * @author Kimio Nishino and Saniya Farishta
  */
 public class MainProject extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
+        
+        //Opening database file
+        DatFileHandler fileReader = new DatFileHandler();
+        ArrayList<Player> players = new ArrayList<>();
+        players = fileReader.saveFileAsPlayers("./Java2-Project-Team-Manager/database.dat");
 
-        Rectangle r1 = new Rectangle(25, 10, 60, 30);
-        r1.setStroke(Color.BLACK);
-        r1.setFill(Color.WHITE);
-        Rectangle r2 = new Rectangle(25, 50, 60, 30);
-        Rectangle r3 = new Rectangle(25, 90, 60, 30);
-        r3.setArcWidth(15);
-        r3.setArcHeight(25);
+        //Horizontal Box (root pane)
+        HBox root = new HBox();
 
-        // Create a group and add nodes to the group
-        Group group = new Group();
-        group.getChildren().addAll(new Text(10, 27, "r1"), r1,
-        new Text(10, 67, "r2"), r2, new Text(10, 107, "r3"), r3);
+        //borders for debugging reasons
+        root.setStyle("-fx-border-color: red;" +
+        "-fx-border-insets: 5; fx-border-width: 2;" +
+        "-fx-border-style: dashed;" );        
 
-        for (int i = 0; i < 4; i++) {
-        Rectangle r = new Rectangle(100, 50, 100, 30);
-        r.setRotate(i * 360 / 8);
-        r.setStroke(Color.color(Math.random(), Math.random(),
-        Math.random()));
-        r.setFill(Color.WHITE);
-        group.getChildren().add(r);
+
+        //Name of the team
+        Text teamNameManagement = new Text("RCB Management"); 
+        teamNameManagement.setStyle("-fx-font: 20 Verdana;");
+
+        //Getting logo from imgs folder
+        Image logo = new Image("./imgs/RCB_Logo.png");
+        ImageView logoView = new ImageView(logo);
+        logoView.setFitWidth(100);
+        logoView.setPreserveRatio(true);
+        Pane pane = new Pane();
+        pane.getChildren().add(logoView);
+
+        //ListView with players' names
+        ListView<Player> playersList = new ListView<>();
+        for (Player player : players) {
+            playersList.getItems().add(player);
         }
 
+        //SideView with team logo, players and search bar
+        VBox sideViewLeft = new VBox();
+        sideViewLeft.getChildren().addAll(logoView, teamNameManagement, playersList);
+        VBox.setMargin(logoView, new Insets(10, 20, 20, 70));
+        VBox.setMargin(teamNameManagement, new Insets(0, 20, 20, 20));
+        
+        //setting borders for debugging reasons
+        sideViewLeft.setStyle("-fx-border-color: black;" +
+        "-fx-border-insets: 5; fx-border-width: 2;" +
+        "-fx-border-style: dashed;" );
 
-        Scene scene = new Scene(new BorderPane(group), 900, 500);
+        //Setting the right side view
+        VBox sideViewRight = new VBox();
+        sideViewRight.setStyle("-fx-border-color: green;" +
+        "-fx-border-insets: 5; fx-border-width: 2;" +
+        "-fx-border-style: dashed;" );
+
+        //Setting the view for player info
+        Pane playerView = new Pane();
+        playerView.setStyle("-fx-border-color: orange;" +
+        "-fx-border-insets: 5; fx-border-width: 2;" +
+        "-fx-border-style: dashed;");
+        Text playerName = new Text("Player Name here");
+        playerView.getChildren().addAll(playerName);
+
+
+        //Setting the view for player stats
+        Pane playerStatsView = new Pane();
+        playerStatsView.setStyle("-fx-border-color: blue;" +
+        "-fx-border-insets: 5; fx-border-width: 2;" +
+        "-fx-border-style: dashed;");
+        Text playerStats = new Text("Player Stats here");
+        playerStatsView.getChildren().addAll(playerStats);
+
+        sideViewRight.setAlignment(Pos.CENTER);
+        sideViewRight.getChildren().addAll(playerView, playerStats);
+
+        VBox.setVgrow(playerStatsView, Priority.ALWAYS);
+        VBox.setVgrow(playerView, Priority.ALWAYS);
+
+        HBox.setHgrow(sideViewRight, Priority.ALWAYS);
+        root.getChildren().addAll(sideViewLeft, sideViewRight);
+
+        Scene scene = new Scene(root, 1000, 600);
         stage.setTitle("Cricket Team Management");
         stage.setScene(scene);
         stage.show();

@@ -1,12 +1,6 @@
 import java.io.File;
 
-import javax.swing.text.Position;
-
 import javafx.scene.image.Image;
-
-
-
-
 
 /**
  *
@@ -21,9 +15,10 @@ public class Player implements Comparable<Player> {
     private int height;
     private int age;
     private Image image;
+
     // path to the image file
     private String path;
-    private Position position;
+    private Position pos;
     private Statistics stats;
 
     /**
@@ -53,9 +48,11 @@ public class Player implements Comparable<Player> {
         age = a;
         image = img;
         this.path = path;
-        position = pos;
+        this.pos = pos;
         this.stats = s;
     }
+
+    
 
     public void setName(String n) {
         name.setName(n);
@@ -67,17 +64,17 @@ public class Player implements Comparable<Player> {
     }
 
     public void setWeight(int w) {
-        if (w > 0 && w < 200)
+        if (w > 0 && w < 250)
             weight = w;
     }
 
     public void setAge(int a) {
-        if (a > 0 && a < 100)
+        if (a > 0 && a < 120)
             age = a;
     }
 
     public void setHeight(int h) {
-        if (h > 0 && h < 230)
+        if (h > 0 && h < 250)
             height = h;
     }
 
@@ -114,7 +111,7 @@ public class Player implements Comparable<Player> {
     }
 
     public Position getPosition() {
-        return position;
+        return pos;
     }
 
     public Statistics getStats() {
@@ -126,8 +123,8 @@ public class Player implements Comparable<Player> {
     }
 
     /**
-     * user has to choose from enum class GOALKEEPER, DEFENSE, MIDFIELDER,
-     * STRIKER;
+     * user needs to choose between ALL_ROUNDER,
+     * BATSMAN, WICKETKEEPER and BOWLER
      *
      * @param p player position
      */
@@ -135,7 +132,7 @@ public class Player implements Comparable<Player> {
         
         // need to figure out a way to check if option is valid
         if (true)
-            position = p;
+            pos = p;
     }
 
     /**
@@ -144,6 +141,7 @@ public class Player implements Comparable<Player> {
      * @return
      */
     public static Player valueOf(String s) {
+        System.out.println("Getting the player from this string: " + s);
 
         // temporary array to hold strings from input
         String[] temp;
@@ -151,10 +149,11 @@ public class Player implements Comparable<Player> {
         // varibles to recive input from after parsing each string
         String firstName = null, lastName = null;
         
-        int num = 0, weight = 0, height = 0, age = 0, p = 0;
-        int gamesPlayed = 0, goals = 0, assist = 0, shotToGoal = 0;
-        int tackles = 0, wrongPass = 0, faults = 0;
-        int yellowCard = 0, redCard = 0;
+        int num = 0, weight = 0, height = 0, age = 0;
+        int totalRuns = 0, battingPos = 0, battingLineupNumber = 0;
+        int totalGamesPlayed = 0;
+        double currentRunRate = 0;
+        String teamName = null;
         
         String pathName = null;
         File file;
@@ -162,7 +161,6 @@ public class Player implements Comparable<Player> {
         Position pos = null;
 
         try {
-
             //store string each piece of the string in a temporary array
             temp = s.split(",");
 
@@ -171,47 +169,27 @@ public class Player implements Comparable<Player> {
             firstName = temp[1];
             lastName = temp[2];
 
-            // get position and convert to enum
-            p = Integer.parseInt(temp[3]);
-            switch (p) {
-                
-                case 1:
-                    pos = Position.BATSMAN;
-                    break;
-                    
-                case 2:
-                    pos = Position.WICKETKEEPER;
-                    break;
-                    
-                case 3:
-                    pos = Position.ALL_ROUNDER;
-                    break;
-                    
-                case 4:
-                    pos = Position.BOWLER;
-                    break;  
-            }
-
-            // read weight, height and age
-            weight = Integer.parseInt(temp[4]);
-            height = Integer.parseInt(temp[5]);
-            age = Integer.parseInt(temp[6]);
-
-            // read the image
-            pathName = temp[7];
+            // get the image file
+            pathName = temp[3];
             file = new File("imgs/" + pathName);
             image = new Image(file.toURI().toString());
 
-            // read all the stats
-            gamesPlayed = Integer.parseInt(temp[8]);
-            goals = Integer.parseInt(temp[9]);
-            assist = Integer.parseInt(temp[10]);
-            shotToGoal = Integer.parseInt(temp[11]);
-            tackles = Integer.parseInt(temp[12]);
-            wrongPass = Integer.parseInt(temp[13]);
-            faults = Integer.parseInt(temp[14]);
-            yellowCard = Integer.parseInt(temp[15]);
-            redCard = Integer.parseInt(temp[16]);
+            // get position and convert to enum
+            pos = Position.getPositionFromInt(Integer.parseInt(temp[4]));
+            
+
+            // getting the weight, height and age
+            age = Integer.parseInt(temp[5]);
+            weight = Integer.parseInt(temp[6]);
+            height = Integer.parseInt(temp[7]);
+            
+            // getting all the other stats
+            totalRuns = Integer.parseInt(temp[8]);
+            battingPos = Integer.parseInt(temp[9]);
+            currentRunRate = Double.parseDouble(temp[10]);
+            battingLineupNumber = Integer.parseInt(temp[11]);
+            totalGamesPlayed = Integer.parseInt(temp[12]);
+            teamName = temp[13];
 
         } catch (Exception ex) {
             System.out.println("Data is not in the correct format or some data is missing");
@@ -221,11 +199,10 @@ public class Player implements Comparable<Player> {
         Name fn = new Name(firstName, lastName);
 
         // create statistics instance
-        // Statistics st = new Statistics(Totalruns, Battingpos, Teamname, Jerseynumber, Currentrunrate, Battinglineupnumber)
-
+        Statistics st = new Statistics(totalRuns, battingPos, teamName, currentRunRate, battingLineupNumber, totalGamesPlayed);
         //create a player instance
-        // Player pl = new Player(fn, num, weight, height, age, image, pathName,
-        //         pos, st);
+        Player pl = new Player(fn, num, weight, height, age, image, pathName,
+                pos, st);
 
         return pl;
     }
