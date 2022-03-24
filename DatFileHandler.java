@@ -2,20 +2,21 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class DatFileReader {
+public class DatFileHandler {
     File file;    
 
 
-    public DatFileReader() {
+    public DatFileHandler() {
     }
 
 
     public ArrayList<Player> saveFileAsPlayers(String filepath) {
         file = new File(filepath);
-        System.out.println("Looking for file in " + filepath);
         ArrayList<Player> players = new ArrayList<>();
         try{
+            System.out.println("Looking for file in " + filepath);
             Scanner scan = new Scanner(file);
+            System.out.println("It reached this line");
             while(scan.hasNextLine()) {
                 players.add(Player.valueOf(scan.nextLine()));
             }

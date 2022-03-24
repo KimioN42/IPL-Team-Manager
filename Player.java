@@ -190,9 +190,6 @@ public class Player implements Comparable<Player> {
             totalGamesPlayed = Integer.parseInt(temp[12]);
             teamName = temp[13];
 
-
-            
-
         } catch (Exception ex) {
             System.out.println("Data is not in the correct format or some data is missing");
         }
