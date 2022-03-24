@@ -6,6 +6,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -33,9 +34,6 @@ public class MainProject extends Application {
         DatFileHandler fileReader = new DatFileHandler();
         ArrayList<Player> players = new ArrayList<>();
         players = fileReader.saveFileAsPlayers("./Java2-Project-Team-Manager/database.dat");
-        for (Player player : players) {
-            player.toString();
-        }
 
         //Horizontal Box (root pane)
         HBox root = new HBox();
@@ -52,17 +50,22 @@ public class MainProject extends Application {
 
         //Getting logo from imgs folder
         Image logo = new Image("./imgs/RCB_Logo.png");
-        ImageView view = new ImageView(logo);
-        view.setFitWidth(100);
-        view.setPreserveRatio(true);
+        ImageView logoView = new ImageView(logo);
+        logoView.setFitWidth(100);
+        logoView.setPreserveRatio(true);
         Pane pane = new Pane();
-        pane.getChildren().add(view);
+        pane.getChildren().add(logoView);
 
+        //ListView with players' names
+        ListView<Player> playersList = new ListView<>();
+        for (Player player : players) {
+            playersList.getItems().add(player);
+        }
 
         //SideView with team logo, players and search bar
         VBox sideViewLeft = new VBox();
-        sideViewLeft.getChildren().addAll(view, teamNameManagement);
-        VBox.setMargin(view, new Insets(10, 20, 20, 60));
+        sideViewLeft.getChildren().addAll(logoView, teamNameManagement, playersList);
+        VBox.setMargin(logoView, new Insets(10, 20, 20, 70));
         VBox.setMargin(teamNameManagement, new Insets(0, 20, 20, 20));
         
         //setting borders for debugging reasons

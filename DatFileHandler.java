@@ -9,7 +9,6 @@ public class DatFileHandler {
     public DatFileHandler() {
     }
 
-
     public ArrayList<Player> saveFileAsPlayers(String filepath) {
         file = new File(filepath);
         ArrayList<Player> players = new ArrayList<>();
