@@ -52,6 +52,8 @@ public class Player implements Comparable<Player> {
         this.stats = s;
     }
 
+    
+
     public void setName(String n) {
         name.setName(n);
     }
@@ -146,10 +148,10 @@ public class Player implements Comparable<Player> {
         // varibles to recive input from after parsing each string
         String firstName = null, lastName = null;
         
-        int num = 0, weight = 0, height = 0, age = 0, p = 0;
-        int gamesPlayed = 0, totalRuns = 0;
-        int battingPos = 0, currentRunRate = 0, battingLineupNumber = 0;
+        int num = 0, weight = 0, height = 0, age = 0;
+        int totalRuns = 0, battingPos = 0, battingLineupNumber = 0;
         int totalGamesPlayed = 0;
+        double currentRunRate = 0;
         String teamName = null;
         
         String pathName = null;
@@ -158,7 +160,6 @@ public class Player implements Comparable<Player> {
         Position pos = null;
 
         try {
-
             //store string each piece of the string in a temporary array
             temp = s.split(",");
 
@@ -167,7 +168,7 @@ public class Player implements Comparable<Player> {
             firstName = temp[1];
             lastName = temp[2];
 
-            // read the image
+            // get the image file
             pathName = temp[3];
             file = new File("imgs/" + pathName);
             image = new Image(file.toURI().toString());
@@ -176,14 +177,20 @@ public class Player implements Comparable<Player> {
             pos = Position.getPositionFromInt(Integer.parseInt(temp[4]));
             
 
-            // read weight, height and age
+            // getting the weight, height and age
             age = Integer.parseInt(temp[5]);
             weight = Integer.parseInt(temp[6]);
             height = Integer.parseInt(temp[7]);
             
-            // read all the stats
+            // getting all the other stats
             totalRuns = Integer.parseInt(temp[8]);
-            
+            battingPos = Integer.parseInt(temp[9]);
+            currentRunRate = Double.parseDouble(temp[10]);
+            battingLineupNumber = Integer.parseInt(temp[11]);
+            totalGamesPlayed = Integer.parseInt(temp[12]);
+            teamName = temp[13];
+
+
             
 
         } catch (Exception ex) {
@@ -194,7 +201,7 @@ public class Player implements Comparable<Player> {
         Name fn = new Name(firstName, lastName);
 
         // create statistics instance
-        Statistics st = new Statistics(Totalruns, Battingpos, Teamname, Currentrunrate, Battinglineupnumber, totalGamesPlayed)
+        Statistics st = new Statistics(totalRuns, battingPos, teamName, currentRunRate, battingLineupNumber, totalGamesPlayed);
         //create a player instance
         Player pl = new Player(fn, num, weight, height, age, image, pathName,
                 pos, st);
