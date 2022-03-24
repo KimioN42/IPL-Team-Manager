@@ -221,13 +221,11 @@ public class Player implements Comparable<Player> {
         Name fn = new Name(firstName, lastName);
 
         // create statistics instance
-        Statistics st = new Statistics(gamesPlayed, goals, assist, shotToGoal,
-                tackles, wrongPass, faults, yellowCard,
-                redCard);
+        // Statistics st = new Statistics(Totalruns, Battingpos, Teamname, Jerseynumber, Currentrunrate, Battinglineupnumber)
 
         //create a player instance
-        Player pl = new Player(fn, num, weight, height, age, image, pathName,
-                pos, st);
+        // Player pl = new Player(fn, num, weight, height, age, image, pathName,
+        //         pos, st);
 
         return pl;
     }

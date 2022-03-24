@@ -1,123 +1,92 @@
-/**
- *
- * @author Kimio Nishino and Saniya Farishta
- */
+
 public class Statistics {
 
     // data members for player`s statistics
-    private int gamesPlayed;
-    private int goals;
-    private int assist;
-    private int shotToGoal;
-    private int tackles;
-    private int wrongPass;
-    private int faults;
-    private int yellowCard;
-    private int redCard;
+    private int Totalruns;
+    private int Battingpos;
+    private int Teamname;
+    private int Jerseynumber;
+    private int Currentrunrate;
+    private int Battinglineupnumber;
+    
 
-    // default constructor    
+    // default constructor   
     public Statistics() {
     }
 
     /**
      * constructor with all player`s data members
      *
-     * @param gamesPlayed number of games each player has played
-     * @param goals number of goals player has scored
-     * @param assist number of assistances a player has done
-     * @param shotToGoal number of shots to goal
-     * @param tackles number of tackles a player has done
-     * @param wrongPass number of wrong passes a player has done
-     * @param faults number of faults a player receives
-     * @param yellowCard number of yellow cards a player received
-     * @param redCard number of red cards a player received
+     * @param Totalruns total number of runs
+     * @param Battingpos batting position of player
+     * @param Teamname name of the team
+     * @param Jerseynumber jersey number of player
+     * @param Currentrunrate current run rate of player
+     * @param Battinglineupnumber on which number position batsman will come for batting
      */
-    public Statistics(int gamesPlayed, int goals, int assist, int shotToGoal,
-            int tackles, int wrongPass, int faults, int yellowCard,
-            int redCard) {
-        this.gamesPlayed = gamesPlayed;
-        this.goals = goals;
-        this.assist = assist;
-        this.shotToGoal = shotToGoal;
-        this.tackles = tackles;
-        this.wrongPass = wrongPass;
-        this.faults = faults;
-        this.yellowCard = yellowCard;
-        this.redCard = redCard;
+    public Statistics(int Totalruns, int Battingpos , int Teamname, int Jerseynumber,
+            int Currentrunrate, int Battinglineupnumber)
+        {
+        this.Totalruns = Totalruns;
+        this.Battingpos = Battingpos;
+        this.Teamname = Teamname;
+        this.Jerseynumber = Jerseynumber;
+        this.Currentrunrate = Currentrunrate;
+        this.Battinglineupnumber = Battinglineupnumber;
+        
     }
 
     // getters for player`s statistics
-    public int getGamesPlayed() {
-        return gamesPlayed;
+    public int getTotalruns() {
+        return Totalruns;
     }
 
-    public int getGoals() {
-        return goals;
+    public int getBattingpos() {
+        return Battingpos;
     }
 
-    public int getAssist() {
-        return assist;
+    public int getTeamname() {
+        return Teamname;
     }
 
-    public int getShotToGoal() {
-        return shotToGoal;
+    public int getJerseynumber() {
+        return Jerseynumber;
     }
 
-    public int getTackles() {
-        return tackles;
+    public int getCurrentrunrate() {
+        return Currentrunrate;
     }
 
-    public int getWrongPass() {
-        return wrongPass;
+    public int getBattinglineupnumber() {
+        return Battinglineupnumber;
     }
 
-    public int getFaults() {
-        return faults;
-    }
-
-    public int getYellowCard() {
-        return yellowCard;
-    }
-
-    public int getRedCard() {
-        return redCard;
-    }
+    
 
     // setters for player`s statistics
-    public void setGamesPlayed(int gamesPlayed) {
-        this.gamesPlayed = gamesPlayed;
+    public void setTotalruns(int Totalruns) {
+        this.Totalruns = Totalruns;
     }
 
-    public void setGoals(int goals) {
-        this.goals = goals;
+    public void setBattingpos(int Battingpos) {
+        this.Battingpos = Battingpos;
     }
 
-    public void setAssist(int assist) {
-        this.assist = assist;
+    public void setTeamname(int Teamname) {
+        this.Teamname = Teamname;
     }
 
-    public void setShotToGoal(int shotToGoal) {
-        this.shotToGoal = shotToGoal;
+    public void setJerseynumber(int Jerseynumber) {
+        this.Jerseynumber = Jerseynumber;
     }
 
-    public void setTackles(int tackles) {
-        this.tackles = tackles;
+    public void setCurrentrunrate(int Currentrunrate) {
+        this.Currentrunrate = Currentrunrate;
     }
 
-    public void setWrongPass(int wrongPass) {
-        this.wrongPass = wrongPass;
+    public void setBattinglineupnumber(int Battinglineupnumber) {
+        this.Battinglineupnumber = Battinglineupnumber;
     }
 
-    public void setFaults(int faults) {
-        this.faults = faults;
-    }
-
-    public void setYellowCard(int yellowCard) {
-        this.yellowCard = yellowCard;
-    }
-
-    public void setRedCard(int redCard) {
-        this.redCard = redCard;
-    }
-
+   
 }
