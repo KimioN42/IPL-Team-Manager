@@ -210,7 +210,8 @@ public class Player implements Comparable<Player> {
 
 
     public String getPlayerString() {
-        String temp = "Player : " + name.toString() +
+        String temp = "====PLAYER INFO=====\n" + 
+        "Player : " + name.toString() +
         "\nJerseyNo: " + num + "\nHeight (cm): " + height +
         "\nWeight (kg): " + weight + "\nAge: " + age + 
         "\nImg URL: " + image.getUrl() + "\nPosition: " + pos.toString()

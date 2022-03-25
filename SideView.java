@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -71,9 +72,23 @@ public class SideView {
 
 
         TableView playersTable = new TableView<>();
-        TableColumn<Player, String> column1 = new TableColumn<>("Jersey No.");
-        TableColumn<Player, String> column2 = new TableColumn<>("Player name");
-        playersTable.getColumns().addAll(column1, column2);
+        
+        TableColumn<String, Player> c1 = new TableColumn<>("No.");
+        c1.setCellValueFactory(new PropertyValueFactory<>("num"));
+        c1.setResizable(false);
+        c1.prefWidthProperty().bind(playersTable.widthProperty().multiply(0.2));
+
+        TableColumn<String, Player> c2 = new TableColumn<>("Name");
+        c2.setCellValueFactory(new PropertyValueFactory<>("name"));
+        c2.setResizable(false);
+        c2.prefWidthProperty().bind(playersTable.widthProperty().multiply(0.8));
+
+        playersTable.getColumns().addAll(c1, c2);
+        playersTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
+        for (Player player : players) {
+            playersTable.getItems().add(player);
+        }
 
         // for (Player player : players) {
         //     playersTable.getItems().add(player);

@@ -86,7 +86,8 @@ public class Statistics {
 
     @Override
     public String toString() {
-        String temp = "Total Runs: " + totalRuns +
+        String temp = "======STATS=====\n" +
+        "Total Runs: " + totalRuns +
         "\nBatting Positon: " + battingPos + 
         "\nCurrent Run Rate: " + currentRunRate +
         "\nBatting Lineup Number: " + battingLineupNumber +
