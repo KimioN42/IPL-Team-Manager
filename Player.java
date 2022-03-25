@@ -3,7 +3,8 @@ import java.io.File;
 import javafx.scene.image.Image;
 
 /**
- *
+ * Player class is the object that contains all both player info and player stats.
+ * It also contains the the proper classes to display player name;
  * @author Kimio Nishino and Saniya Farishta
  */
 public class Player implements Comparable<Player> {
@@ -208,12 +209,13 @@ public class Player implements Comparable<Player> {
     }
 
     /**
-     *
+     * Edited toString method to return the jersey number + player name
+     * to show it nicely in the listView
      * @return
      */
     @Override
     public String toString() {
-        return name.toString();
+        return num + " " + name.toString();
     }
 
     /**
