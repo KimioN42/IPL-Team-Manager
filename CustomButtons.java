@@ -17,6 +17,28 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 
 public class CustomButtons {
+
+    // Huge thanks to Bukhard! (https://stackoverflow.com/a/18959399/5033494)
+    public static class NumberTextField extends TextField {
+        @Override
+        public void replaceText(int start, int end, String text) {
+            if (validate(text)) {
+                super.replaceText(start, end, text);
+            }
+        }
+
+        @Override
+        public void replaceSelection(String text) {
+            if (validate(text)) {
+                super.replaceSelection(text);
+            }
+        }
+
+        private boolean validate(String text) {
+            return text.matches("[0-9]*");
+        }
+    }
+
     public static Button getAddBtn() {
         Button addBtn = new Button("Add new player");
         addBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -47,8 +69,28 @@ public class CustomButtons {
 
                 Label age = new Label("Age: ");
                 form.add(age, 0, 3);
-                TextField ageField = new TextField();
+                NumberTextField ageField = new NumberTextField();
                 form.add(ageField, 1, 3);
+
+                Label height = new Label("Height (cm): ");
+                form.add(height, 0, 4);
+                NumberTextField heightField = new NumberTextField();
+                form.add(heightField, 1, 4);
+
+                Label weight = new Label("Weight (kg): ");
+                form.add(weight, 0, 5);
+                NumberTextField weighField = new NumberTextField();
+                form.add(weighField, 1, 5);
+
+                Label jerseyNo = new Label("Jersey Number: ");
+                form.add(jerseyNo, 0, 6);
+                NumberTextField jNumberTextField = new NumberTextField();
+                form.add(jNumberTextField, 1, 6);
+
+                Label totalGamesPlayed = new Label("Total Games Played: ");
+                form.add(totalGamesPlayed, 0, 7);
+                NumberTextField tgpField = new NumberTextField();
+                form.add(tgpField, 1, 7);
 
                 HBox buttonsBox = new HBox(10);
                 Button saveBtn = new Button("Save");
@@ -60,7 +102,7 @@ public class CustomButtons {
 
                 buttonsBox.getChildren().addAll(saveBtn, closeBtn);
                 buttonsBox.setAlignment(Pos.BOTTOM_CENTER);
-                form.add(buttonsBox, 1, 4);
+                form.add(buttonsBox, 1, 10);
 
                 Scene scene = new Scene(form, 500, 800);
 

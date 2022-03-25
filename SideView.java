@@ -103,7 +103,7 @@ public class SideView {
         // just for testing
         Button deleteBtn = new Button("Delete player");
 
-        HBox buttonsBox = new HBox();
+        HBox buttonsBox = new HBox(10);
         buttonsBox.getChildren().addAll(CustomButtons.getAddBtn(), deleteBtn);
         buttonsBox.setAlignment(Pos.CENTER);
 
