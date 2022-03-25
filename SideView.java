@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 
+import javafx.event.Event;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -25,12 +26,6 @@ import javafx.scene.text.Text;
  */
 public class SideView {
 
-    public SideView() {
-    }
-
-
-
-    
     /**
      * Method responsible for generating all the correct data from the sideleftview
      * @author Kimio Nishino and Saniya Farishta
@@ -38,9 +33,13 @@ public class SideView {
      * @return sideViewLeft - VBox containing all the elements in the sideView of the application
      */
     public static VBox getSideView(ArrayList<Player> players) {
+        //Creating the VBox that will contain all the nodes
+        VBox sideViewLeft = new VBox();
+
         //Name of the team
         Text teamNameManagement = new Text("RCB Management"); 
         teamNameManagement.setStyle("-fx-font: 20 Verdana;");
+        
 
         //Getting logo from imgs folder
         Image logo = new Image("./imgs/RCB_Logo.png");
@@ -53,52 +52,50 @@ public class SideView {
         Label comboBoxLabel = new Label("Select the Position you want to filter");
         comboBoxLabel.setAlignment(Pos.CENTER);
 
+
         //ComboBox with the position properties
         ComboBox<Position> positionSelector = new ComboBox<>();
         positionSelector.getItems().setAll(Position.values());
+        positionSelector.getSelectionModel().select(4);
         positionSelector.autosize();
-        // positionSelector.setPlaceholder(comboBoxLabel);
         
-        //ListView with players' names
-        ListView<Player> playersList = new ListView<>();
-        for (Player player : players) {
-            playersList.getItems().add(player);
-        }
-        //as soon as the program is run, the focus will go to the listView
-        playersList.requestFocus();
+        positionSelector.setOnAction((Event) -> {
+            System.out.println("Position selected: " + positionSelector.getValue().label);
+        });
+        
 
-        //just for testing
-        Button okBtn = new Button("Ok");
+        
 
 
         TableView playersTable = new TableView<>();
         
+        //Setting the first column (jersey number)
         TableColumn<String, Player> c1 = new TableColumn<>("No.");
         c1.setCellValueFactory(new PropertyValueFactory<>("num"));
         c1.setResizable(false);
         c1.prefWidthProperty().bind(playersTable.widthProperty().multiply(0.2));
 
+        //Setting the second column (player name)
         TableColumn<String, Player> c2 = new TableColumn<>("Name");
         c2.setCellValueFactory(new PropertyValueFactory<>("name"));
         c2.setResizable(false);
         c2.prefWidthProperty().bind(playersTable.widthProperty().multiply(0.8));
 
         playersTable.getColumns().addAll(c1, c2);
+        playersTable.setPrefWidth(sideViewLeft.widthProperty().get());
         playersTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         for (Player player : players) {
             playersTable.getItems().add(player);
         }
-
-        // for (Player player : players) {
-        //     playersTable.getItems().add(player);
-        // }
         
 
-
+        //just for testing
+        Button okBtn = new Button("Ok");
+        
 
         //SideView with team logo, players and search bar
-        VBox sideViewLeft = new VBox();
+        sideViewLeft.setPadding(new Insets(0, 20, 0, 20));
         sideViewLeft.setAlignment(Pos.CENTER);
         sideViewLeft.getChildren().addAll(logoView, teamNameManagement, comboBoxLabel, positionSelector, playersTable, okBtn);
         HBox.setMargin(comboBoxLabel, new Insets(10, 0, 10, 0));

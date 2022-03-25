@@ -35,7 +35,7 @@ public class DatFileHandler {
             System.out.println("Error opening the file");
         }   
         for (Player player : players) {
-            System.out.println("Players added: " + player.getPlayerString());
+            System.out.println("Players added: \n" + player.getPlayerString());
         }
         return players;
     }

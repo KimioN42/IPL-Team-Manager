@@ -42,7 +42,7 @@ public class MainProject extends Application {
         "-fx-border-style: dashed;" );        
 
         
-        root.getChildren().addAll(svl, svr);
+        root.getChildren().addAll(svl);
         HBox.setHgrow(svr, Priority.ALWAYS);
         
 
