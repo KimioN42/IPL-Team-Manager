@@ -10,44 +10,47 @@ import javafx.stage.Stage;
 /**
  * Main class for the Team Manager project.
  * The main method from which the application starts, is located
- * in this class. 
+ * in this class.
+ * 
  * @author Kimio Nishino and Saniya Farishta
  */
 public class MainProject extends Application {
-    
+
     /**
      * Start method for the Team Manager project.
      * The start method puts together all views and nodes to render
      * the application, as well as opens the database file to get the player info.
+     * 
      * @author Kimio Nishino and Saniya Farishta
      */
     @Override
     public void start(Stage stage) throws Exception {
-        
-        //Opening database file
+
+        // Opening database file
         DatFileHandler fileReader = new DatFileHandler();
         ArrayList<Player> players = new ArrayList<>();
-        players = fileReader.saveFileAsPlayers("./Java2-Project-Team-Manager/datfiles/test.dat");
+        // dont know why, but on macos the filepath needs to be ./datfiles/...
+        // and on windows, the pathfile should start in the project folder, like this:
+        // ./Java2-Project-Team-Manager/datfiles/...
+        players = fileReader.saveFileAsPlayers("./datfiles/test.dat");
 
-        //Horizontal Box (root pane)
+        // Horizontal Box (root pane)
         HBox root = new HBox();
 
-        //Setting up both side views (left and right)
+        // Setting up both side views (left and right)
         VBox svl = SideView.getSideView(players);
         VBox svr = SideView.getSideViewRight();
 
-        //borders for debugging
+        // borders for debugging
         root.setStyle("-fx-border-color: red;" +
-        "-fx-border-insets: 5; fx-border-width: 2;" +
-        "-fx-border-style: dashed;" );        
+                "-fx-border-insets: 5; fx-border-width: 2;" +
+                "-fx-border-style: dashed;");
 
-        
         root.getChildren().addAll(svl);
         HBox.setHgrow(svr, Priority.ALWAYS);
-        
 
         Scene scene = new Scene(root, 1000, 600);
-        stage.setTitle("Cricket Team Management");
+        stage.setTitle("RCB Management");
         stage.setScene(scene);
         stage.show();
     }
