@@ -6,23 +6,29 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 /**
- * SideViewLeft class for the project.
+ * SideView class for the project.
  * This project contains the elements necessary to render the left side
  * of the application, including player list, selection and sorting by position.
  * @author Kimio Nishino and Saniya Farishta
  */
-public class SideViewLeft {
+public class SideView {
 
-    public SideViewLeft() {
+    public SideView() {
     }
+
+
+
     
     /**
      * Method responsible for generating all the correct data from the sideleftview
@@ -63,10 +69,23 @@ public class SideViewLeft {
         //just for testing
         Button okBtn = new Button("Ok");
 
+
+        TableView playersTable = new TableView<>();
+        TableColumn<Player, String> column1 = new TableColumn<>("Jersey No.");
+        TableColumn<Player, String> column2 = new TableColumn<>("Player name");
+        playersTable.getColumns().addAll(column1, column2);
+
+        // for (Player player : players) {
+        //     playersTable.getItems().add(player);
+        // }
+        
+
+
+
         //SideView with team logo, players and search bar
         VBox sideViewLeft = new VBox();
         sideViewLeft.setAlignment(Pos.CENTER);
-        sideViewLeft.getChildren().addAll(logoView, teamNameManagement, comboBoxLabel, positionSelector, playersList, okBtn);
+        sideViewLeft.getChildren().addAll(logoView, teamNameManagement, comboBoxLabel, positionSelector, playersTable, okBtn);
         HBox.setMargin(comboBoxLabel, new Insets(10, 0, 10, 0));
         
 
@@ -77,4 +96,48 @@ public class SideViewLeft {
 
         return sideViewLeft;
     }
+
+
+
+    /**
+     * Method responsible for generating all the correct data from the sideleftright
+     * @author Kimio Nishino and Saniya Farishta
+     * @return sideviewright - vbox containing elements from sideview
+     */
+    public static VBox getSideViewRight() {
+        VBox sideViewRight = new VBox();
+        sideViewRight.setStyle("-fx-border-color: green;" +
+        "-fx-border-insets: 5; fx-border-width: 2;" +
+        "-fx-border-style: dashed;" );
+
+        //Setting the view for player info
+        Pane playerView = new Pane();
+        playerView.setStyle("-fx-border-color: orange;" +
+        "-fx-border-insets: 5; fx-border-width: 2;" +
+        "-fx-border-style: dashed;");
+        Text playerName = new Text("Player Name here");
+        playerView.getChildren().addAll(playerName);
+
+
+        //Setting the view for player stats
+        Pane playerStatsView = new Pane();
+        playerStatsView.setStyle("-fx-border-color: blue;" +
+        "-fx-border-insets: 5; fx-border-width: 2;" +
+        "-fx-border-style: dashed;");
+        Text playerStats = new Text("Player Stats here");
+        playerStatsView.getChildren().addAll(playerStats);
+
+        sideViewRight.setAlignment(Pos.CENTER);
+        sideViewRight.getChildren().addAll(playerView, playerStats);
+
+        VBox.setVgrow(playerStatsView, Priority.ALWAYS);
+        VBox.setVgrow(playerView, Priority.ALWAYS);
+        
+
+        return sideViewRight;
+    }
+
+
+
+
 }

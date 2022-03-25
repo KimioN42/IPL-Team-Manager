@@ -33,8 +33,8 @@ public class MainProject extends Application {
         HBox root = new HBox();
 
         //Setting up both side views (left and right)
-        VBox svl = SideViewLeft.getSideView(players);
-        VBox svr = SideViewRight.getSideViewRight();
+        VBox svl = SideView.getSideView(players);
+        VBox svr = SideView.getSideViewRight();
 
         //borders for debugging
         root.setStyle("-fx-border-color: red;" +

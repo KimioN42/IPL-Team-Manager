@@ -3,7 +3,7 @@ public class Statistics {
 
     // data members for player`s statistics
     private int totalRuns;
-    private int battingPos;
+    private String battingPos;
     private String teamName;
     private double currentRunRate;
     private int battingLineupNumber;
@@ -22,7 +22,7 @@ public class Statistics {
      * @param Currentrunrate current run rate of player
      * @param Battinglineupnumber on which number position batsman will come for batting
      */
-    public Statistics(int Totalruns, int Battingpos , String Teamname,
+    public Statistics(int Totalruns, String Battingpos , String Teamname,
             double Currentrunrate, int Battinglineupnumber, int totalGamesPlayed)
         {
         this.totalRuns = Totalruns;
@@ -43,11 +43,11 @@ public class Statistics {
         this.totalRuns = totalRuns;
     }
 
-    public int getBattingPos() {
+    public String getBattingPos() {
         return this.battingPos;
     }
 
-    public void setBattingPos(int battingPos) {
+    public void setBattingPos(String battingPos) {
         this.battingPos = battingPos;
     }
 
@@ -81,6 +81,17 @@ public class Statistics {
 
     public void setTotalGamesPlayed(int totalGamesPlayed) {
         this.totalGamesPlayed = totalGamesPlayed;
+    }
+
+
+    @Override
+    public String toString() {
+        String temp = "Total Runs: " + totalRuns +
+        "\nBatting Positon: " + battingPos + 
+        "\nCurrent Run Rate: " + currentRunRate +
+        "\nBatting Lineup Number: " + battingLineupNumber +
+        "\nTeam name: " + teamName;
+        return temp;
     }
    
 }

@@ -1,11 +1,11 @@
-18,Virat,Kohli,vk.jpg,Batsman,35,67,167,1200,left hand,46.9,2,72,RCB
-8,Anuj,Rawat,ar.jpg,Batsman,26,61,134,750,right hand,32.3,1,48,RCB
-6,Dinesh,Karthik,dk.jpg,Batsman,30,60,154,634,right hand,21.9,6,56,RCB
-32,Finn,Allen,fa.jpg,Wicket Keeper,39,56,171,478,right hand,33.6,8,38,RCB
-4,Glenn,Maxwell,gm.jpg,Batsman,36,69,169,957,left hand,61.9,5,61,RCB
-12,Harshal,Patel,hp.jpg,Bowler,30,62,157,321,left hand,21.2,9,49,RCB
-3,Mohammed,Siraj,ms.jpg,Bowler,33,65,163,276,right hand,13.7,10,63,RCB
-81,Shahbaz,Ahmed,sa.jpg,Batsman,32,64,173,786,right hand,46.7,3,33,RCB
-51,Sherfane,Rutherford,sr.jpg,Bowler,29,58,159,259,right hand,32.9,11,41,RCB
-9,Suyash,Prabhudessai,sp.jpg,All-rounder,41,66,165,854,right hand,39.9,4,29,RCB
-28,Yuzi,Chahal,yc.jpg,All-rounder,28,64,162,683,right hand,33.9,7,53,RCB
+18,Virat,Kohli,vk.jpg,0,35,67,167,1200,left hand,46.9,2,72,RCB
+8,Anuj,Rawat,ar.jpg,0,26,61,134,750,right hand,32.3,1,48,RCB
+6,Dinesh,Karthik,dk.jpg,0,30,60,154,634,right hand,21.9,6,56,RCB
+32,Finn,Allen,fa.jpg,1,39,56,171,478,right hand,33.6,8,38,RCB
+4,Glenn,Maxwell,gm.jpg,0,36,69,169,957,left hand,61.9,5,61,RCB
+12,Harshal,Patel,hp.jpg,2,30,62,157,321,left hand,21.2,9,49,RCB
+3,Mohammed,Siraj,ms.jpg,2,33,65,163,276,right hand,13.7,10,63,RCB
+81,Shahbaz,Ahmed,sa.jpg,0,32,64,173,786,right hand,46.7,3,33,RCB
+51,Sherfane,Rutherford,sr.jpg,2,29,58,159,259,right hand,32.9,11,41,RCB
+9,Suyash,Prabhudessai,sp.jpg,3,41,66,165,854,right hand,39.9,4,29,RCB
+28,Yuzi,Chahal,yc.jpg,3,28,64,162,683,right hand,33.9,7,53,RCB

@@ -8,7 +8,7 @@ import java.util.Scanner;
  * @author Kimio Nishino and Saniya Farishta
  */
 public class DatFileHandler {
-    
+
     private File file;    
 
     public DatFileHandler() {
@@ -35,7 +35,7 @@ public class DatFileHandler {
             System.out.println("Error opening the file");
         }   
         for (Player player : players) {
-            System.out.println("Players added: " + player.getName().toString());
+            System.out.println("Players added: " + player.getPlayerString());
         }
         return players;
     }
