@@ -3,7 +3,8 @@ import java.io.File;
 import javafx.scene.image.Image;
 
 /**
- *
+ * Player class is the object that contains all both player info and player stats.
+ * It also contains the the proper classes to display player name;
  * @author Kimio Nishino and Saniya Farishta
  */
 public class Player implements Comparable<Player> {
@@ -150,10 +151,10 @@ public class Player implements Comparable<Player> {
         String firstName = null, lastName = null;
         
         int num = 0, weight = 0, height = 0, age = 0;
-        int totalRuns = 0, battingPos = 0, battingLineupNumber = 0;
+        int totalRuns = 0, battingLineupNumber = 0;
         int totalGamesPlayed = 0;
         double currentRunRate = 0;
-        String teamName = null;
+        String teamName = null, battingPos = null;
         
         String pathName = null;
         File file;
@@ -185,7 +186,7 @@ public class Player implements Comparable<Player> {
             
             // getting all the other stats
             totalRuns = Integer.parseInt(temp[8]);
-            battingPos = Integer.parseInt(temp[9]);
+            battingPos = temp[9];
             currentRunRate = Double.parseDouble(temp[10]);
             battingLineupNumber = Integer.parseInt(temp[11]);
             totalGamesPlayed = Integer.parseInt(temp[12]);
@@ -207,13 +208,25 @@ public class Player implements Comparable<Player> {
         return pl;
     }
 
+
+    public String getPlayerString() {
+        String temp = "====PLAYER INFO=====\n" + 
+        "Player : " + name.toString() +
+        "\nJerseyNo: " + num + "\nHeight (cm): " + height +
+        "\nWeight (kg): " + weight + "\nAge: " + age + 
+        "\nImg URL: " + image.getUrl() + "\nPosition: " + pos.toString()
+        + "\n" + stats.toString();
+        return temp;
+    }
+
     /**
-     *
+     * Edited toString method to return the jersey number + player name
+     * to show it nicely in the listView
      * @return
      */
     @Override
     public String toString() {
-        return name.toString();
+        return num + " " + name.toString();
     }
 
     /**
