@@ -29,16 +29,17 @@ public class MainProject extends Application {
         // Opening database file
         DatFileHandler fileReader = new DatFileHandler();
         ArrayList<Player> players = new ArrayList<>();
+
         // dont know why, but on macos the filepath needs to be ./datfiles/...
         // and on windows, the pathfile should start in the project folder, like this:
         // ./Java2-Project-Team-Manager/datfiles/...
-        players = fileReader.saveFileAsPlayers("./datfiles/test.dat");
+        players = fileReader.saveFileAsPlayers("./Java2-Project-Team-Manager/datfiles/test.dat");
 
         // Horizontal Box (root pane)
         HBox root = new HBox();
 
         // Setting up both side views (left and right)
-        VBox svl = SideView.getSideView(players);
+        VBox svl = SideView.getSideViewLeft(players);
         VBox svr = SideView.getSideViewRight();
 
         // borders for debugging

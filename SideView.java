@@ -37,9 +37,9 @@ public class SideView {
      * @return sideViewLeft - VBox containing all the elements in the sideView of
      *         the application
      */
-    public static VBox getSideView(ArrayList<Player> players) {
+    public static VBox getSideViewLeft(ArrayList<Player> players) {
         // Creating the VBox that will contain all the nodes
-        VBox sideViewLeft = new VBox();
+        VBox sideViewLeft = new VBox(10);
 
         // Name of the team
         Text teamNameManagement = new Text("RCB Management");
@@ -123,7 +123,7 @@ public class SideView {
     }
 
     /**
-     * Method responsible for generating all the correct data from the sideleftright
+     * Method responsible for generating all the correct data from the siderightview
      * 
      * @author Kimio Nishino and Saniya Farishta
      * @return sideviewright - vbox containing elements from sideview

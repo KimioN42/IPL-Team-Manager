@@ -28,15 +28,12 @@ public class DatFileHandler {
             System.out.println("Looking for file in " + filepath);
             Scanner scan = new Scanner(file);
             while(scan.hasNextLine()) {
-                players.add(Player.valueOf(scan.nextLine()));
+                players.add(Player.saveFromString(scan.nextLine()));
             }
             scan.close();
         } catch (Exception e) {
             System.out.println("Error opening the file");
         }   
-        for (Player player : players) {
-            System.out.println("Players added: \n" + player.getPlayerString());
-        }
         return players;
     }
 }
