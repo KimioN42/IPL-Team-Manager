@@ -20,14 +20,9 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-/**
- * SideView class for the project.
- * This project contains the elements necessary to render the left side
- * of the application, including player list, selection and sorting by position.
- * 
- * @author Kimio Nishino and Saniya Farishta
- */
-public class SideView {
+public class LeftSideView extends MainProject {
+
+    protected static Player selectedPlayer;
 
     /**
      * Method responsible for generating all the correct data from the sideleftview
@@ -37,7 +32,7 @@ public class SideView {
      * @return sideViewLeft - VBox containing all the elements in the sideView of
      *         the application
      */
-    public static VBox getSideViewLeft(ArrayList<Player> players) {
+    public static VBox getSideViewLeft() {
         // Creating the VBox that will contain all the nodes
         VBox sideViewLeft = new VBox(10);
 
@@ -100,11 +95,11 @@ public class SideView {
         slPlayer.comparatorProperty().bind(playersTable.comparatorProperty());
         playersTable.setItems(slPlayer);
 
-        // just for testing
-        Button deleteBtn = new Button("Delete player");
+        // selectedPlayer = (Player) playersTable.getSelectionModel().getSelectedItem();
+        // System.out.println("Selected player: " + selectedPlayer.getName());
 
         HBox buttonsBox = new HBox(10);
-        buttonsBox.getChildren().addAll(CustomButtons.getAddBtn(), deleteBtn);
+        buttonsBox.getChildren().addAll(CustomButtons.getAddBtn(), CustomButtons.getDelBtn());
         buttonsBox.setAlignment(Pos.CENTER);
 
         // SideView with team logo, players and search bar
@@ -121,42 +116,4 @@ public class SideView {
 
         return sideViewLeft;
     }
-
-    /**
-     * Method responsible for generating all the correct data from the siderightview
-     * 
-     * @author Kimio Nishino and Saniya Farishta
-     * @return sideviewright - vbox containing elements from sideview
-     */
-    public static VBox getSideViewRight() {
-        VBox sideViewRight = new VBox();
-        sideViewRight.setStyle("-fx-border-color: green;" +
-                "-fx-border-insets: 5; fx-border-width: 2;" +
-                "-fx-border-style: dashed;");
-
-        // Setting the view for player info
-        Pane playerView = new Pane();
-        playerView.setStyle("-fx-border-color: orange;" +
-                "-fx-border-insets: 5; fx-border-width: 2;" +
-                "-fx-border-style: dashed;");
-        Text playerName = new Text("Player Name here");
-        playerView.getChildren().addAll(playerName);
-
-        // Setting the view for player stats
-        Pane playerStatsView = new Pane();
-        playerStatsView.setStyle("-fx-border-color: blue;" +
-                "-fx-border-insets: 5; fx-border-width: 2;" +
-                "-fx-border-style: dashed;");
-        Text playerStats = new Text("Player Stats here");
-        playerStatsView.getChildren().addAll(playerStats);
-
-        sideViewRight.setAlignment(Pos.CENTER);
-        sideViewRight.getChildren().addAll(playerView, playerStats);
-
-        VBox.setVgrow(playerStatsView, Priority.ALWAYS);
-        VBox.setVgrow(playerView, Priority.ALWAYS);
-
-        return sideViewRight;
-    }
-
 }
