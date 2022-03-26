@@ -4,11 +4,17 @@
  * @author Kimio Nishino and Saniya Farishta
  */
 public enum Position {
-    BATSMAN,
-    WICKETKEEPER,
-    BOWLER,
-    ALL_ROUNDER,
-    INVALID; 
+    BATSMAN("Batsman"),
+    WICKETKEEPER("Wicket Keeper"),
+    BOWLER("Bowler"),
+    ALL_ROUNDER("All Rounder"),
+    ANY_POSITION("Any Position");
+
+    public final String label;
+
+    private Position(String label) {
+        this.label = label;
+    }
 
     public String getPositionString(Position p) {
         switch (p) {
@@ -26,19 +32,18 @@ public enum Position {
     }
 
     public static Position getPositionFromInt(int p) {
-        switch (p) {  
+        switch (p) {
+            case 0:
+                return Position.BATSMAN;
             case 1:
-                return Position.BATSMAN;  
+                return Position.WICKETKEEPER;
             case 2:
-                return Position.WICKETKEEPER;    
+                return Position.ALL_ROUNDER;
             case 3:
-                return Position.ALL_ROUNDER;   
-            case 4:
-                return Position.BOWLER; 
+                return Position.BOWLER;
             default:
-                return Position.INVALID;
+                return Position.ANY_POSITION;
         }
     }
-
 
 }

@@ -141,7 +141,7 @@ public class Player implements Comparable<Player> {
      * @param s
      * @return
      */
-    public static Player valueOf(String s) {
+    public static Player saveFromString(String s) {
         System.out.println("Getting the player from this string: " + s);
 
         // temporary array to hold strings from input
@@ -204,7 +204,7 @@ public class Player implements Comparable<Player> {
         //create a player instance
         Player pl = new Player(fn, num, weight, height, age, image, pathName,
                 pos, st);
-
+        System.out.println("Player saved from string: \n" + pl.getPlayerString());
         return pl;
     }
 
