@@ -9,32 +9,31 @@ public class Statistics {
     private int battingLineupNumber;
     private int totalGamesPlayed;
 
-    // default constructor   
+    // default constructor
     public Statistics() {
     }
 
     /**
      * constructor with all player's data members
      *
-     * @param Totalruns total number of runs
-     * @param Battingpos batting position of player
-     * @param Teamname name of the team
-     * @param Currentrunrate current run rate of player
-     * @param Battinglineupnumber on which number position batsman will come for batting
+     * @param Totalruns           total number of runs
+     * @param Battingpos          batting position of player
+     * @param Teamname            name of the team
+     * @param Currentrunrate      current run rate of player
+     * @param Battinglineupnumber on which number position batsman will come for
+     *                            batting
      */
-    public Statistics(int Totalruns, String Battingpos , String Teamname,
-            double Currentrunrate, int Battinglineupnumber, int totalGamesPlayed)
-        {
+    public Statistics(int Totalruns, String Battingpos, String Teamname,
+            double Currentrunrate, int Battinglineupnumber, int totalGamesPlayed) {
         this.totalRuns = Totalruns;
-        this.battingPos= Battingpos;
+        this.battingPos = Battingpos;
         this.teamName = Teamname;
         this.currentRunRate = Currentrunrate;
-        this.battingLineupNumber = Battinglineupnumber;  
+        this.battingLineupNumber = Battinglineupnumber;
         this.totalGamesPlayed = totalGamesPlayed;
     }
 
-
-    //Getters and setters below    
+    // Getters and setters below
     public int getTotalRuns() {
         return this.totalRuns;
     }
@@ -83,16 +82,15 @@ public class Statistics {
         this.totalGamesPlayed = totalGamesPlayed;
     }
 
-
     @Override
     public String toString() {
         String temp = "======STATS=====\n" +
-        "Total Runs: " + totalRuns +
-        "\nBatting Positon: " + battingPos + 
-        "\nCurrent Run Rate: " + currentRunRate +
-        "\nBatting Lineup Number: " + battingLineupNumber +
-        "\nTeam name: " + teamName;
+                "Total Runs: " + totalRuns +
+                "\nBatting Positon: " + battingPos +
+                "\nCurrent Run Rate: " + currentRunRate +
+                "\nBatting Lineup Number: " + battingLineupNumber +
+                "\nTeam name: " + teamName;
         return temp;
     }
-   
+
 }

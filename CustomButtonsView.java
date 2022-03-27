@@ -22,6 +22,7 @@ public class CustomButtonsView {
      * Class responsible for validating textFields as NumberOnlyTextFields,
      * that is, it will not accept any character that is not a number.
      * Huge thanks to Bukhard! (https://stackoverflow.com/a/18959399/5033494)
+     * 
      * @author Bukhard
      * @modified by Kimio Nishino
      */
@@ -46,15 +47,18 @@ public class CustomButtonsView {
     }
 
     /**
-     * Wrapper class to be able to get the String value when running the action inside
+     * Wrapper class to be able to get the String value when running the action
+     * inside
      * a lambda function. Used on combobox for batting position selector and
      * when choosing a file.
      * Huge thanks to luca.vercelli! (https://stackoverflow.com/a/55758047)
+     * 
      * @author luca.vercelli
      * @modified by Kimio Nishino
      */
     public static class Wrapper<T> {
         public T obj;
+
         public Wrapper(T obj) {
             this.obj = obj;
         }
@@ -124,7 +128,7 @@ public class CustomButtonsView {
         NumberTextField trField = new NumberTextField();
         form.add(trField, 4, 10);
 
-        String battingPos[] = {"Right Hand", "Left Hand"};
+        String battingPos[] = { "Right Hand", "Left Hand" };
         Label battingPosLabel = new Label("Batting position: ");
         form.add(battingPosLabel, 0, 11);
         ComboBox battingPosSelector = new ComboBox<>(FXCollections.observableArrayList(battingPos));
@@ -139,22 +143,21 @@ public class CustomButtonsView {
 
         Label imgLabel = new Label("Select the player picture: ");
         form.add(imgLabel, 0, 13);
-        FileChooser fileChooser = new FileChooser();    
+        FileChooser fileChooser = new FileChooser();
         Button imgSelectButton = new Button("Select file");
         Wrapper<String> stringWrapper = new Wrapper<>(null);
         Label imgURLLabel = new Label();
         imgSelectButton.setOnAction(e -> {
             Stage fileSelectorStage = new Stage();
             fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
-            File selectedFile = fileChooser.showOpenDialog(fileSelectorStage);;
+            File selectedFile = fileChooser.showOpenDialog(fileSelectorStage);
+            ;
             stringWrapper.obj = selectedFile.getPath();
             System.out.println("stringwrapper in action: " + stringWrapper.obj);
             imgURLLabel.setText(stringWrapper.obj);
         });
         form.add(imgSelectButton, 4, 13);
         form.add(imgURLLabel, 0, 14, 5, 1);
-
-
 
         HBox buttonsBox = new HBox(10);
         Button saveBtn = new Button("Save");

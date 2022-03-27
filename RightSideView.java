@@ -1,5 +1,7 @@
 import java.io.File;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -39,59 +41,77 @@ public class RightSideView extends LeftSideView {
                                 "-fx-border-insets: 5; fx-border-width: 2;" +
                                 "-fx-border-style: dashed;");
 
-                Player testPlayer = players.get(9);
-                System.out.println("Test player for right side view: \n" + testPlayer.getPlayerString());
+                System.out.println("Test player for right side view: \n" + selectedPlayer.get().getName());
 
-                ImageView imgView = new ImageView(testPlayer.getImage());
-                imgView.setFitHeight(300);
+                ImageView imgView = new ImageView(selectedPlayer.get().getImage());
+                imgView.setFitWidth(300);
                 imgView.setPreserveRatio(true);
 
-                Text playerName = new Text("Name: " + testPlayer.getName());
+                Text playerName = new Text("Name: " + selectedPlayer.get().getName());
                 playerName.setFont(Font.font("Verdana", FontWeight.MEDIUM, FontPosture.REGULAR, 15));
 
-                Text playerAge = new Text("Age: " + testPlayer.getAge());
+                Text playerAge = new Text("Age: " + selectedPlayer.get().getAge());
                 playerAge.setFont(Font.font("Verdana", FontWeight.MEDIUM, FontPosture.REGULAR, 15));
 
-                Text playerHeight = new Text("Height (cm): " + testPlayer.getHeight());
+                Text playerHeight = new Text("Height (cm): " + selectedPlayer.get().getHeight());
                 playerHeight.setFont(Font.font("Verdana", FontWeight.MEDIUM, FontPosture.REGULAR, 15));
 
-                Text playerWeight = new Text("Weight (kg): " + testPlayer.getWeight());
+                Text playerWeight = new Text("Weight (kg): " + selectedPlayer.get().getWeight());
                 playerWeight.setFont(Font.font("Verdana", FontWeight.MEDIUM, FontPosture.REGULAR, 15));
 
-                Text playerPosition = new Text("Position: " + testPlayer.getPosition().label);
+                Text playerPosition = new Text("Position: " + selectedPlayer.get().getPosition().label);
                 playerPosition.setFont(Font.font("Verdana", FontWeight.MEDIUM, FontPosture.REGULAR, 15));
 
-                Text playerBattingPosition = new Text("Batting Position: " + testPlayer.getStats().getBattingPos().toUpperCase());
+                Text playerBattingPosition = new Text(
+                                "Batting Position: " + selectedPlayer.get().getStats().getBattingPos().toUpperCase());
                 playerBattingPosition.setFont(Font.font("Verdana", FontWeight.MEDIUM, FontPosture.REGULAR, 15));
 
-                Text playerTotalRuns = new Text("Total Runs: " + testPlayer.getStats().getTotalRuns());
+                Text playerTotalRuns = new Text("Total Runs: " + selectedPlayer.get().getStats().getTotalRuns());
                 playerTotalRuns.setFont(Font.font("Verdana", FontWeight.MEDIUM, FontPosture.REGULAR, 15));
 
-                Text playerTotalGames = new Text("Total Games Played: " + testPlayer.getStats().getTotalGamesPlayed());
+                Text playerTotalGames = new Text(
+                                "Total Games Played: " + selectedPlayer.get().getStats().getTotalGamesPlayed());
                 playerTotalGames.setFont(Font.font("Verdana", FontWeight.MEDIUM, FontPosture.REGULAR, 15));
 
-                Text playerCurrentRunRate = new Text("Current Run Rate: " + testPlayer.getStats().getCurrentRunRate()); 
+                Text playerCurrentRunRate = new Text(
+                                "Current Run Rate: " + selectedPlayer.get().getStats().getCurrentRunRate());
                 playerCurrentRunRate.setFont(Font.font("Verdana", FontWeight.MEDIUM, FontPosture.REGULAR, 15));
 
-                Text playerBattingLineUpNumber = new Text("Batting Lineup Number: " + testPlayer.getStats().getBattingLineupNumber());
+                Text playerBattingLineUpNumber = new Text(
+                                "Batting Lineup Number: " + selectedPlayer.get().getStats().getBattingLineupNumber());
                 playerBattingLineUpNumber.setFont(Font.font("Verdana", FontWeight.MEDIUM, FontPosture.REGULAR, 15));
 
-                Text playerTeam = new Text("Team: " + testPlayer.getStats().getTeamName());
+                Text playerTeam = new Text("Team: " + selectedPlayer.get().getStats().getTeamName());
                 playerTeam.setFont(Font.font("Verdana", FontWeight.MEDIUM, FontPosture.REGULAR, 15));
 
-                
-                
-
+                selectedPlayer.addListener(new ChangeListener<Player>() {
+                        @Override
+                        public void changed(ObservableValue<? extends Player> observable, Player oldValue,
+                                        Player newValue) {
+                                imgView.setImage(selectedPlayer.get().getImage());
+                                playerName.setText("Name: " + selectedPlayer.get().getName());
+                                playerAge.setText("Age: " + selectedPlayer.get().getAge());
+                                playerHeight.setText("Height (cm): " + selectedPlayer.get().getHeight());
+                                playerWeight.setText("Weight (kg): " + selectedPlayer.get().getWeight());
+                                playerPosition.setText("Position: " + selectedPlayer.get().getPosition().label);
+                                playerBattingPosition.setText(
+                                                "Batting Position: " + selectedPlayer.get().getStats().getBattingPos()
+                                                                .toUpperCase());
+                                playerTotalGames.setText(
+                                                "Total Runs: " + selectedPlayer.get().getStats().getTotalRuns());
+                                playerTotalGames.setText("Total Games Played: "
+                                                + selectedPlayer.get().getStats().getTotalGamesPlayed());
+                                playerCurrentRunRate.setText("Current Run Rate: "
+                                                + selectedPlayer.get().getStats().getCurrentRunRate());
+                                playerBattingLineUpNumber.setText("Batting Lineup Number: "
+                                                + selectedPlayer.get().getStats().getBattingLineupNumber());
+                                playerTeam.setText("Team: " + selectedPlayer.get().getStats().getTeamName());
+                        }
+                });
 
                 Button editBtn = CustomButtons.getEditBtn();
 
-
-
-
-
-
-
-                //Adding everything to the GridPane
+                // Adding everything to the GridPane
                 sideViewRight.add(imgView, 0, 0, 1, 13);
                 sideViewRight.add(playerName, 1, 0);
                 sideViewRight.add(playerAge, 1, 1);
@@ -104,9 +124,8 @@ public class RightSideView extends LeftSideView {
                 sideViewRight.add(playerTotalRuns, 1, 8);
                 sideViewRight.add(playerBattingLineUpNumber, 1, 9);
                 sideViewRight.add(playerTeam, 1, 10);
-                sideViewRight.add(editBtn, 1, 11);
+                sideViewRight.add(editBtn, 0, 15, 2, 1);
                 GridPane.setHalignment(editBtn, HPos.CENTER);
-                
 
                 return sideViewRight;
         }

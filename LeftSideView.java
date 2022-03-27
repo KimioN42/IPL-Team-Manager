@@ -1,5 +1,5 @@
-import java.util.ArrayList;
-
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -7,7 +7,6 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.SelectionMode;
@@ -19,13 +18,15 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 public class LeftSideView extends MainProject {
 
-    protected static Player selectedPlayer;
+    /**
+     * Variable necessary to add a listener everytime it changes.
+     */
+    protected static ObjectProperty<Player> selectedPlayer = new SimpleObjectProperty<>();
 
     /**
      * Method responsible for generating all the correct data from the sideleftview
@@ -57,12 +58,14 @@ public class LeftSideView extends MainProject {
         TableColumn<Player, String> c1 = new TableColumn<>("No.");
         c1.setCellValueFactory(new PropertyValueFactory<>("num"));
         c1.setResizable(false);
+        c1.setReorderable(false);
         c1.prefWidthProperty().bind(playersTable.widthProperty().multiply(0.2));
 
         // Setting the second column (player name)
         TableColumn<Player, String> c2 = new TableColumn<>("Name");
         c2.setCellValueFactory(new PropertyValueFactory<>("name"));
         c2.setResizable(false);
+        c2.setReorderable(false);
         c2.prefWidthProperty().bind(playersTable.widthProperty().multiply(0.8));
 
         playersTable.getColumns().addAll(c1, c2);
@@ -84,7 +87,7 @@ public class LeftSideView extends MainProject {
         FilteredList<Player> filteredPlayerByPos = new FilteredList<>(olPlayers, p -> true);
 
         // adding functionality to the combobox
-        positionSelector.setOnAction((Event) -> {
+        positionSelector.setOnAction(e -> {
             System.out.println("Position selected: " + positionSelector.getValue().label);
             filteredPlayerByPos.setPredicate(player -> {
                 if (positionSelector.getValue() == Position.ANY_POSITION)
@@ -100,6 +103,17 @@ public class LeftSideView extends MainProject {
 
         playersTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         playersTable.getSelectionModel().select(0);
+        selectedPlayer.set(playersTable.getSelectionModel().getSelectedItem());
+
+        // Adding a listener to get the selected player everytime user clicks tableview
+        ObservableList<Player> selectedItems = playersTable.getSelectionModel().getSelectedItems();
+        selectedItems.addListener(new ListChangeListener<Player>() {
+            @Override
+            public void onChanged(Change<? extends Player> change) {
+                selectedPlayer.set(selectedItems.get(0));
+                System.out.println("Current selected player is:" + selectedPlayer.get().getName());
+            }
+        });
 
         if (playersTable.getSelectionModel().getSelectedItem() != null) {
             System.out.println("Selected player: " + playersTable.getSelectionModel().getSelectedItem().getName());

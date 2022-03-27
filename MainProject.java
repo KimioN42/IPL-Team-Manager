@@ -37,8 +37,6 @@ public class MainProject extends Application {
         // And on windows, the pathfile should start in the project folder, like this:
         // ./Java2-Project-Team-Manager/datfiles/...
         players = datFileReader.saveFileAsPlayers("./Java2-Project-Team-Manager/datfiles/test.dat");
-        
-
 
         // Setting up both side views (left and right)
         VBox svl = LeftSideView.getSideViewLeft();
