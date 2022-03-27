@@ -1,27 +1,12 @@
 import java.io.File;
-import java.util.ArrayList;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 
 /**
  * SideView class for the project.
@@ -49,7 +34,12 @@ public class RightSideView extends LeftSideView {
                                 "-fx-border-insets: 5; fx-border-width: 2;" +
                                 "-fx-border-style: dashed;");
 
-                File file = new File("imgs/dk.JPG");
+                
+                //Here I'm running into the same problem as the file opening..
+                //Windows requires the full path as if the file is being run from one directory
+                //outside of the project directory, while MacOS is being run from within 
+                //the project directory... need to find a way to automatically manage this.
+                File file = new File("./Java2-Project-Team-Manager/imgs/dk.JPG");
                 Image image = new Image(file.toURI().toString());
                 ImageView imgView = new ImageView(image);
                 imgView.setFitHeight(300);

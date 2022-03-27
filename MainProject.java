@@ -36,7 +36,9 @@ public class MainProject extends Application {
         // On MacOS the filepath needs to be ./datfiles/...
         // And on windows, the pathfile should start in the project folder, like this:
         // ./Java2-Project-Team-Manager/datfiles/...
-        players = datFileReader.saveFileAsPlayers("./datfiles/test.dat");
+        players = datFileReader.saveFileAsPlayers("./Java2-Project-Team-Manager/datfiles/test.dat");
+        
+
 
         // Setting up both side views (left and right)
         VBox svl = LeftSideView.getSideViewLeft();
