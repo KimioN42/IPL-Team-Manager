@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -9,7 +10,9 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -48,16 +51,16 @@ public class LeftSideView extends MainProject {
         Pane pane = new Pane();
         pane.getChildren().add(logoView);
 
-        TableView playersTable = new TableView<>();
+        TableView<Player> playersTable = new TableView<>();
 
         // Setting the first column (jersey number)
-        TableColumn<String, Player> c1 = new TableColumn<>("No.");
+        TableColumn<Player, String> c1 = new TableColumn<>("No.");
         c1.setCellValueFactory(new PropertyValueFactory<>("num"));
         c1.setResizable(false);
         c1.prefWidthProperty().bind(playersTable.widthProperty().multiply(0.2));
 
         // Setting the second column (player name)
-        TableColumn<String, Player> c2 = new TableColumn<>("Name");
+        TableColumn<Player, String> c2 = new TableColumn<>("Name");
         c2.setCellValueFactory(new PropertyValueFactory<>("name"));
         c2.setResizable(false);
         c2.prefWidthProperty().bind(playersTable.widthProperty().multiply(0.8));
@@ -75,6 +78,8 @@ public class LeftSideView extends MainProject {
         positionSelector.getSelectionModel().select(4);
         positionSelector.autosize();
 
+        // Filtering and sorting the players before actually putting them in the
+        // tableView
         ObservableList<Player> olPlayers = FXCollections.observableList(players);
         FilteredList<Player> filteredPlayerByPos = new FilteredList<>(olPlayers, p -> true);
 
@@ -89,14 +94,18 @@ public class LeftSideView extends MainProject {
                 return false;
             });
         });
-
         SortedList<Player> slPlayer = new SortedList<>(filteredPlayerByPos);
-
         slPlayer.comparatorProperty().bind(playersTable.comparatorProperty());
         playersTable.setItems(slPlayer);
 
-        // selectedPlayer = (Player) playersTable.getSelectionModel().getSelectedItem();
-        // System.out.println("Selected player: " + selectedPlayer.getName());
+        playersTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        playersTable.getSelectionModel().select(0);
+
+        if (playersTable.getSelectionModel().getSelectedItem() != null) {
+            System.out.println("Selected player: " + playersTable.getSelectionModel().getSelectedItem().getName());
+        } else {
+            System.out.println("Selected player is null");
+        }
 
         HBox buttonsBox = new HBox(10);
         buttonsBox.getChildren().addAll(CustomButtons.getAddBtn(), CustomButtons.getDelBtn());
