@@ -172,7 +172,7 @@ public class Player implements Comparable<Player> {
 
             // get the image file
             pathName = temp[3];
-            file = new File("imgs/" + pathName);
+            file = new File("./Java2-Project-Team-Manager/imgs/" + pathName);
             image = new Image(file.toURI().toString());
 
             // get position and convert to enum
@@ -204,7 +204,7 @@ public class Player implements Comparable<Player> {
         //create a player instance
         Player pl = new Player(fn, num, weight, height, age, image, pathName,
                 pos, st);
-        System.out.println("Player saved from string: \n" + pl.getPlayerString());
+        // System.out.println("Player saved from string: \n" + pl.getPlayerString());
         return pl;
     }
 
@@ -221,7 +221,8 @@ public class Player implements Comparable<Player> {
 
     /**
      * Edited toString method to return the jersey number + player name
-     * to show it nicely in the listView
+     * to show it nicely in the listView.
+     * Edit: deprecated, we are now using tableView in the main screen.
      * @return
      */
     @Override

@@ -22,4 +22,9 @@ public class CustomButtons extends CustomButtonsView {
         return deleteBtn;
     }
 
+    public static Button getEditBtn() {
+        Button editBtn = new Button("Edit");
+        return editBtn;
+    }
+
 }

@@ -3,10 +3,15 @@ import java.io.File;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 
 /**
  * SideView class for the project.
@@ -27,31 +32,81 @@ public class RightSideView extends LeftSideView {
                 GridPane sideViewRight = new GridPane();
                 sideViewRight.setHgap(10);
                 sideViewRight.setVgap(10);
-                sideViewRight.setGridLinesVisible(true);
+                sideViewRight.setGridLinesVisible(false);
                 sideViewRight.setAlignment(Pos.CENTER);
                 sideViewRight.setPadding(new Insets(15, 15, 15, 15));
                 sideViewRight.setStyle("-fx-border-color: blue;" +
                                 "-fx-border-insets: 5; fx-border-width: 2;" +
                                 "-fx-border-style: dashed;");
 
-                
-                //Here I'm running into the same problem as the file opening..
-                //Windows requires the full path as if the file is being run from one directory
-                //outside of the project directory, while MacOS is being run from within 
-                //the project directory... need to find a way to automatically manage this.
-                File file = new File("./Java2-Project-Team-Manager/imgs/dk.JPG");
-                Image image = new Image(file.toURI().toString());
-                ImageView imgView = new ImageView(image);
+                Player testPlayer = players.get(9);
+                System.out.println("Test player for right side view: \n" + testPlayer.getPlayerString());
+
+                ImageView imgView = new ImageView(testPlayer.getImage());
                 imgView.setFitHeight(300);
                 imgView.setPreserveRatio(true);
 
-                Label imgViewLabel = new Label("imgViewLabel");
+                Text playerName = new Text("Name: " + testPlayer.getName());
+                playerName.setFont(Font.font("Verdana", FontWeight.MEDIUM, FontPosture.REGULAR, 15));
 
-                Label testLabel = new Label("This is just a test");
-                sideViewRight.add(testLabel, 3, 0);
-                sideViewRight.add(imgView, 0, 0);
-                sideViewRight.add(imgViewLabel, 0, 1);
-                GridPane.setHalignment(imgViewLabel, HPos.CENTER);
+                Text playerAge = new Text("Age: " + testPlayer.getAge());
+                playerAge.setFont(Font.font("Verdana", FontWeight.MEDIUM, FontPosture.REGULAR, 15));
+
+                Text playerHeight = new Text("Height (cm): " + testPlayer.getHeight());
+                playerHeight.setFont(Font.font("Verdana", FontWeight.MEDIUM, FontPosture.REGULAR, 15));
+
+                Text playerWeight = new Text("Weight (kg): " + testPlayer.getWeight());
+                playerWeight.setFont(Font.font("Verdana", FontWeight.MEDIUM, FontPosture.REGULAR, 15));
+
+                Text playerPosition = new Text("Position: " + testPlayer.getPosition().label);
+                playerPosition.setFont(Font.font("Verdana", FontWeight.MEDIUM, FontPosture.REGULAR, 15));
+
+                Text playerBattingPosition = new Text("Batting Position: " + testPlayer.getStats().getBattingPos().toUpperCase());
+                playerBattingPosition.setFont(Font.font("Verdana", FontWeight.MEDIUM, FontPosture.REGULAR, 15));
+
+                Text playerTotalRuns = new Text("Total Runs: " + testPlayer.getStats().getTotalRuns());
+                playerTotalRuns.setFont(Font.font("Verdana", FontWeight.MEDIUM, FontPosture.REGULAR, 15));
+
+                Text playerTotalGames = new Text("Total Games Played: " + testPlayer.getStats().getTotalGamesPlayed());
+                playerTotalGames.setFont(Font.font("Verdana", FontWeight.MEDIUM, FontPosture.REGULAR, 15));
+
+                Text playerCurrentRunRate = new Text("Current Run Rate: " + testPlayer.getStats().getCurrentRunRate()); 
+                playerCurrentRunRate.setFont(Font.font("Verdana", FontWeight.MEDIUM, FontPosture.REGULAR, 15));
+
+                Text playerBattingLineUpNumber = new Text("Batting Lineup Number: " + testPlayer.getStats().getBattingLineupNumber());
+                playerBattingLineUpNumber.setFont(Font.font("Verdana", FontWeight.MEDIUM, FontPosture.REGULAR, 15));
+
+                Text playerTeam = new Text("Team: " + testPlayer.getStats().getTeamName());
+                playerTeam.setFont(Font.font("Verdana", FontWeight.MEDIUM, FontPosture.REGULAR, 15));
+
+                
+                
+
+
+                Button editBtn = CustomButtons.getEditBtn();
+
+
+
+
+
+
+
+                //Adding everything to the GridPane
+                sideViewRight.add(imgView, 0, 0, 1, 13);
+                sideViewRight.add(playerName, 1, 0);
+                sideViewRight.add(playerAge, 1, 1);
+                sideViewRight.add(playerHeight, 1, 2);
+                sideViewRight.add(playerWeight, 1, 3);
+                sideViewRight.add(playerPosition, 1, 4);
+                sideViewRight.add(playerTotalGames, 1, 5);
+                sideViewRight.add(playerBattingPosition, 1, 6);
+                sideViewRight.add(playerCurrentRunRate, 1, 7);
+                sideViewRight.add(playerTotalRuns, 1, 8);
+                sideViewRight.add(playerBattingLineUpNumber, 1, 9);
+                sideViewRight.add(playerTeam, 1, 10);
+                sideViewRight.add(editBtn, 1, 11);
+                GridPane.setHalignment(editBtn, HPos.CENTER);
+                
 
                 return sideViewRight;
         }

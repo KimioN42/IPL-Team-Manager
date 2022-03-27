@@ -52,7 +52,7 @@ public class MainProject extends Application {
         root.getChildren().addAll(svl, svr);
         // HBox.setHgrow(svr, Priority.ALWAYS);
 
-        Scene scene = new Scene(root, 1000, 600);
+        Scene scene = new Scene(root, 900, 600);
         stage.setTitle("RCB Management");
         stage.setScene(scene);
         stage.show();
