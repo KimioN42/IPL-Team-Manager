@@ -8,13 +8,16 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -516,6 +519,30 @@ public class CustomButtonsView extends LeftSideView {
         Scene scene = new Scene(form, 500, 800);
 
         stage.setTitle("Add new player");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    protected static void openDelWindow() {
+        GridPane alert = new GridPane();
+        alert.setAlignment(Pos.CENTER);
+        alert.setHgap(10);
+        alert.setVgap(10);
+        alert.setPadding(new Insets(25, 25, 25, 25));
+        Label label = new Label("Are you sure you want to delete player "
+                + selectedPlayer.get().getName() + "?");
+        label.setWrapText(true);
+        Button yes = new Button("Yes");
+        Button no = new Button("No");
+        alert.add(label, 0, 0, 10, 1);
+        alert.add(yes, 0, 1, 5, 1);
+        alert.add(no, 6, 1, 5, 1);
+
+        yes.setOnAction(new RemoveHandler(selectedPlayer.get()));
+        no.setOnAction(e -> stage.close());
+
+        Scene scene = new Scene(alert, 200, 200);
+        stage.setTitle("Delete player");
         stage.setScene(scene);
         stage.show();
     }

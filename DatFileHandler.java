@@ -1,8 +1,10 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -93,7 +95,39 @@ public class DatFileHandler {
 
     }
 
-    public void removePlayer(int indexLine) {
+    public void removePlayer(int playerNum) {
+        System.out.println("Deleting line of player number " + playerNum);
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            StringBuffer newFileContent = new StringBuffer();
+            for (String next, line = reader.readLine(); line != null; line = next) {
+                next = reader.readLine();
+                System.out.println("Current line: " + line);
+                System.out.println("Next line: " + next);
 
+                String temp[] = line.split(",");
+
+                if (Integer.parseInt(temp[0]) != playerNum)
+                    newFileContent.append(line);
+                if (next != null) {
+                    String nextTemp[] = line.split(",");
+                    if (Integer.parseInt(nextTemp[0]) != playerNum)
+                        newFileContent.append(System.lineSeparator());
+                }
+
+            }
+            reader.close();
+            System.out.println("String to be saved to file: " +
+                    newFileContent.toString());
+
+            FileWriter writer = new FileWriter(file);
+            BufferedWriter bfWriter = new BufferedWriter(writer);
+            PrintWriter replace = new PrintWriter(bfWriter);
+            replace.write(newFileContent.toString());
+            replace.close();
+        } catch (Exception e) {
+            System.out.println("Exception ocurred while removing player from .dat file");
+            e.printStackTrace();
+        }
     }
 }

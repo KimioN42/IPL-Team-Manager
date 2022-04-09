@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
@@ -124,7 +125,7 @@ public class RightSideView extends LeftSideView {
         sideViewRight.add(playerTotalRuns, 1, 8);
         sideViewRight.add(playerBattingLineUpNumber, 1, 9);
         sideViewRight.add(playerTeam, 1, 10);
-        sideViewRight.add(editBtn, 0, 15, 2, 1);
+        sideViewRight.add(editBtn, 0, 15, 5, 1);
         GridPane.setHalignment(editBtn, HPos.CENTER);
 
         return sideViewRight;
