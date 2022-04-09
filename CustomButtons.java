@@ -23,6 +23,7 @@ public class CustomButtons extends CustomButtonsView {
 
     public static Button getEditBtn() {
         Button editBtn = new Button("Edit");
+        editBtn.setOnAction(e -> openEditWindow());
         return editBtn;
     }
 

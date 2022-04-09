@@ -1,5 +1,6 @@
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
@@ -66,8 +67,10 @@ public class DatFileHandler {
         }
     }
 
-    public void editPlayer(String playerNum, String playeString) {
+    public void editPlayer(String playeString) {
         try {
+            System.out.println("Player string to be edited: ");
+            System.out.println(playeString);
             BufferedReader brFile = new BufferedReader(new FileReader(file));
             StringBuffer inputBuffer = new StringBuffer();
             String line;
@@ -77,7 +80,12 @@ public class DatFileHandler {
                 inputBuffer.append(System.lineSeparator());
             }
             brFile.close();
-            System.out.println(inputBuffer.toString());
+            String inputStr = inputBuffer.toString();
+            System.out.println("Debugging: " + inputStr);
+
+            FileOutputStream fileOut = new FileOutputStream(file);
+            fileOut.write(inputStr.getBytes());
+            fileOut.close();
 
         } catch (Exception e) {
             System.out.println();
@@ -85,4 +93,7 @@ public class DatFileHandler {
 
     }
 
+    public void removePlayer(int indexLine) {
+
+    }
 }

@@ -27,6 +27,14 @@ public class SaveHandler extends CustomButtonsView implements EventHandler<Actio
         System.out.println(player.getPlayerString());
         System.out.println("Image path from player: " + player.getPath());
         datFileReader.addPlayerToFile(player.saveToString());
+        // adding player to arraylist during runtime.. will be updated next time
+        // the program is run.
+        players.add(player);
+        // this updates the observableList during runtime as well. Again, the list is
+        // updated next time the program refreshes, as long as the player was properly
+        // saved to the .dat file
+        olPlayers.add(player);
+        stage.close();
     }
 
     // for some reason i can't understand, this method is not working right now

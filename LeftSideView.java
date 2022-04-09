@@ -8,6 +8,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.SelectionMode;
@@ -27,12 +28,12 @@ public class LeftSideView extends MainProject {
      * Variable necessary to add a listener everytime it changes.
      */
     protected static ObjectProperty<Player> selectedPlayer = new SimpleObjectProperty<>();
+    protected static ObservableList<Player> olPlayers;
 
     /**
      * Method responsible for generating all the correct data from the sideleftview
      * 
      * @author Kimio Nishino and Saniya Farishta
-     * @param players - ArrayList of player objects
      * @return sideViewLeft - VBox containing all the elements in the sideView of
      *         the application
      */
@@ -83,7 +84,7 @@ public class LeftSideView extends MainProject {
 
         // Filtering and sorting the players before actually putting them in the
         // tableView
-        ObservableList<Player> olPlayers = FXCollections.observableList(players);
+        olPlayers = FXCollections.observableList(players);
         FilteredList<Player> filteredPlayerByPos = new FilteredList<>(olPlayers, p -> true);
 
         // adding functionality to the combobox
@@ -100,6 +101,7 @@ public class LeftSideView extends MainProject {
             playersTable.getSelectionModel().select(0);
             selectedPlayer.set(playersTable.getSelectionModel().getSelectedItem());
         });
+
         SortedList<Player> slPlayer = new SortedList<>(filteredPlayerByPos);
         slPlayer.comparatorProperty().bind(playersTable.comparatorProperty());
         playersTable.setItems(slPlayer);
@@ -130,7 +132,9 @@ public class LeftSideView extends MainProject {
         }
 
         HBox buttonsBox = new HBox(10);
-        buttonsBox.getChildren().addAll(CustomButtons.getAddBtn(), CustomButtons.getDelBtn());
+        Button deleteBtn = CustomButtons.getDelBtn();
+        deleteBtn.setOnAction(new RemoveHandler(selectedPlayer.get()));
+        buttonsBox.getChildren().addAll(CustomButtons.getAddBtn(), deleteBtn);
         buttonsBox.setAlignment(Pos.CENTER);
 
         // SideView with team logo, players and search bar
@@ -147,4 +151,5 @@ public class LeftSideView extends MainProject {
 
         return sideViewLeft;
     }
+
 }
