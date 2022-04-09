@@ -62,7 +62,6 @@ public class Player implements Comparable<Player> {
     }
 
     public void setNum(int n) throws Exception {
-
         if (n > 0 && n < 100) {
             num = n;
         } else {
@@ -95,8 +94,20 @@ public class Player implements Comparable<Player> {
         }
     }
 
+    public void setImage(Image img) {
+        this.image = img;
+    }
+
+    public void setPath(String s) {
+        this.path = s;
+    }
+
     public void setStatistics(Statistics s) {
         this.stats = s;
+    }
+
+    public void setPosition(Position p) {
+        this.pos = p;
     }
 
     public String getName() {
@@ -217,22 +228,22 @@ public class Player implements Comparable<Player> {
         return pl;
     }
 
-    public static String saveToString(Player p) {
+    public String saveToString() {
         String pString = "";
-        pString += p.getNum();
-        pString += "," + p.getFirstName();
-        pString += "," + p.getLastName();
-        pString += "," + p.getPath();
-        pString += "," + Position.getIntFromPosition(p.getPosition());
-        pString += "," + p.getAge();
-        pString += "," + p.getWeight();
-        pString += "," + p.getHeight();
-        pString += "," + p.getStats().getTotalRuns();
-        pString += "," + p.getStats().getBattingPos();
-        pString += "," + p.getStats().getCurrentRunRate();
-        pString += "," + p.getStats().getBattingLineupNumber();
-        pString += "," + p.getStats().getTotalGamesPlayed();
-        pString += "," + p.getStats().getTeamName();
+        pString += getNum();
+        pString += "," + getFirstName();
+        pString += "," + getLastName();
+        pString += "," + getPath();
+        pString += "," + Position.getIntFromPosition(getPosition());
+        pString += "," + getAge();
+        pString += "," + getWeight();
+        pString += "," + getHeight();
+        pString += "," + getStats().getTotalRuns();
+        pString += "," + getStats().getBattingPos();
+        pString += "," + getStats().getCurrentRunRate();
+        pString += "," + getStats().getBattingLineupNumber();
+        pString += "," + getStats().getTotalGamesPlayed();
+        pString += "," + getStats().getTeamName();
         return pString;
     }
 

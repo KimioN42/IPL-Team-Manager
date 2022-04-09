@@ -19,7 +19,7 @@ import javafx.stage.Stage;
 public class MainProject extends Application {
 
     // protected datafields that are available to the subclasses of MainProject
-    static protected DatFileHandler datFileReader = new DatFileHandler();
+    static protected DatFileHandler datFileReader = new DatFileHandler("./datfiles/test.dat");
     static protected ArrayList<Player> players = new ArrayList<>();
     static protected HBox root = new HBox();
 
@@ -36,7 +36,7 @@ public class MainProject extends Application {
         // On MacOS the filepath needs to be ./datfiles/...
         // And on windows, the pathfile should start in the project folder, like this:
         // ./Java2-Project-Team-Manager/datfiles/...
-        players = datFileReader.saveFileAsPlayers("./datfiles/test.dat");
+        players = datFileReader.saveFileAsPlayers();
 
         // Setting up both side views (left and right)
         VBox svl = LeftSideView.getSideViewLeft();

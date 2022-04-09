@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
@@ -25,7 +26,7 @@ import javafx.stage.Stage;
  * 
  * @author Kimio Nishino
  */
-public class CustomButtonsView {
+public class CustomButtonsView extends MainProject {
     /**
      * Class responsible for validating textFields as NumberOnlyTextFields,
      * that is, it will not accept any character that is not a number.
@@ -111,9 +112,9 @@ public class CustomButtonsView {
 
         Label weight = new Label("Weight (kg): ");
         form.add(weight, 0, 5);
-        IntegerTextField weighField = new IntegerTextField();
-        weighField.setId("TextField for weight");
-        form.add(weighField, 4, 5);
+        IntegerTextField weightField = new IntegerTextField();
+        weightField.setId("TextField for weight");
+        form.add(weightField, 4, 5);
 
         Label jerseyNo = new Label("Jersey Number: ");
         form.add(jerseyNo, 0, 6);
@@ -153,9 +154,9 @@ public class CustomButtonsView {
         battingPosSelector.autosize();
         form.add(battingPosSelector, 4, 11);
 
-        String Position[] = { "Batsman", "Wicket Keeper", "Bowler", "All Rounder" };
+        String posArray[] = { "Batsman", "Wicket Keeper", "Bowler", "All Rounder" };
         Label positionLabel = new Label("Position");
-        ComboBox posSelector = new ComboBox<>(FXCollections.observableArrayList(Position));
+        ComboBox posSelector = new ComboBox<>(FXCollections.observableArrayList(posArray));
         posSelector.getSelectionModel().select(0);
         posSelector.autosize();
         form.add(positionLabel, 0, 12);
@@ -171,19 +172,31 @@ public class CustomButtonsView {
         form.add(imgLabel, 0, 14);
         FileChooser fileChooser = new FileChooser();
         Button imgSelectButton = new Button("Select file");
-        Wrapper<String> stringWrapper = new Wrapper<>(null);
+        Wrapper<String> filePathWrapper = new Wrapper<>(null);
+        Wrapper<String> imgNameWrapper = new Wrapper<String>(null);
         Label imgURLLabel = new Label();
+        imgURLLabel.setWrapText(true);
+        GridPane.setHalignment(imgURLLabel, HPos.CENTER);
         imgSelectButton.setOnAction(e -> {
-            Stage fileSelectorStage = new Stage();
-            fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
-            File selectedFile = fileChooser.showOpenDialog(fileSelectorStage);
-            ;
-            stringWrapper.obj = selectedFile.getPath();
-            System.out.println("stringwrapper in action: " + stringWrapper.obj);
-            imgURLLabel.setText(stringWrapper.obj);
+            try {
+                Stage fileSelectorStage = new Stage();
+                fileChooser.setInitialDirectory(new File(System.getProperty("user.dir") + "/imgs"));
+                FileChooser.ExtensionFilter imageFilter = new FileChooser.ExtensionFilter("Image Files", "*.jpg",
+                        "*.png");
+                fileChooser.getExtensionFilters().add(imageFilter);
+                File selectedFile = fileChooser.showOpenDialog(fileSelectorStage);
+                imgURLLabel.setText("Select an image inside the imgs folder of the project!");
+                filePathWrapper.obj = selectedFile.getPath();
+                imgNameWrapper.obj = selectedFile.getName();
+                imgURLLabel.setText("Image selected: " + imgNameWrapper.obj);
+            } catch (Exception ex) {
+                System.out.println("Error in filechooser");
+                System.out.println("Value of the stringwrapper:" + filePathWrapper.obj);
+            }
+
         });
         form.add(imgSelectButton, 4, 14);
-        form.add(imgURLLabel, 0, 14, 5, 1);
+        form.add(imgURLLabel, 0, 17, 5, 2);
 
         Label exceptionLabel = new Label("");
         form.add(exceptionLabel, 0, 15, 5, 1);
@@ -207,7 +220,8 @@ public class CustomButtonsView {
         closeBtn.setOnAction(actionEvent -> stage.close());
         checkForm.setOnAction(e -> {
             // first I'm gonna make sure the user has filled up every text-field
-            // and has also got a valid image for player picture
+            // and has also got a valid image for player picture.
+
             // looking up all text fields in the form nodes
             Set<Node> nodes = form.lookupAll(".text-field");
             boolean emptyTextFields = false;
@@ -217,33 +231,49 @@ public class CustomButtonsView {
                     emptyTextFields = true;
                 }
             }
-            if (emptyTextFields) {
+            if (filePathWrapper.obj == null) {
+                System.out.println("User hasn't selected a valid image yet!");
+                exceptionLabel.setText("Please select a valid image!!!");
+            } else if (emptyTextFields) {
                 System.out.println("At least one text-field is empty");
                 exceptionLabel.setText("First fill up every text label");
             } else {
-                Statistics s = new Statistics();
                 try {
+                    Statistics s = new Statistics();
                     p.setName(firstNameField.getText() + " " + lastNameField.getText());
                     p.setAge(Integer.parseInt(ageField.getText()));
                     p.setHeight(Integer.parseInt(heightField.getText()));
-                    p.setWeight(Integer.parseInt(weighField.getText()));
+                    p.setWeight(Integer.parseInt(weightField.getText()));
                     p.setNum(Integer.parseInt(jNumberTextField.getText()));
+                    p.setPosition(Position.getPositionFromInt(posSelector.getSelectionModel().getSelectedIndex()));
+                    p.setPath(imgNameWrapper.obj);
                     s.setTotalGamesPlayed(Integer.parseInt(tgpField.getText()));
                     s.setBattingLineupNumber(Integer.parseInt(bluField.getText()));
+                    s.setTotalRuns(Integer.parseInt(trField.getText()));
                     s.setBattingPos(battingPosSelector.getValue().toString());
+                    s.setTeamName(tnField.getText());
+                    s.setCurrentRunRate(Double.parseDouble(crrField.getText()));
+                    saveBtn.setDisable(false);
+                    File imgFile = new File(filePathWrapper.obj);
+                    Image pImage = new Image(imgFile.toURI().toString());
+                    p.setImage(pImage);
+                    p.setStatistics(s);
+                    exceptionLabel.setText("You can save this player! (Or close to discard)");
+
+                    // Making every text-input and combobox disabled so user can't change
+                    // after checking the form
+                    for (Node node : nodes) {
+                        TextField tfNode = (TextField) node;
+                        tfNode.setEditable(false);
+                    }
+                    posSelector.setDisable(true);
+                    battingPosSelector.setDisable(true);
+                    imgSelectButton.setDisable(true);
+                    checkForm.setDisable(true);
 
                 } catch (Exception ex) {
                     exceptionLabel.setText(ex.getMessage());
                     System.out.println(ex.getMessage());
-                }
-                try {
-                    s.setCurrentRunRate(Double.parseDouble(crrField.getText()));
-                    saveBtn.setDisable(false);
-                    exceptionLabel.setText("You can save this player!");
-                } catch (Exception ex) {
-                    System.out.println("Error converting the double number");
-                    exceptionLabel
-                            .setText("Make sure the text format for current run rate is a double! (eg.: 2.4 etc)");
                 }
             }
 
@@ -259,6 +289,14 @@ public class CustomButtonsView {
         stage.setTitle("Add new player");
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void copyImageToFolder() {
+        try {
+
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
     }
 
 }
