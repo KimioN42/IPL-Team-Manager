@@ -1,9 +1,12 @@
 
 import java.io.File;
+import java.util.Set;
 
 import javafx.collections.FXCollections;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -17,6 +20,11 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+/**
+ * Class that generates the GUI and methods for buttons when clicked.
+ * 
+ * @author Kimio Nishino
+ */
 public class CustomButtonsView {
     /**
      * Class responsible for validating textFields as NumberOnlyTextFields,
@@ -26,7 +34,7 @@ public class CustomButtonsView {
      * @author Bukhard
      * @modified by Kimio Nishino
      */
-    public static class NumberTextField extends TextField {
+    public static class IntegerTextField extends TextField {
         @Override
         public void replaceText(int start, int end, String text) {
             if (validate(text)) {
@@ -48,8 +56,7 @@ public class CustomButtonsView {
 
     /**
      * Wrapper class to be able to get the String value when running the action
-     * inside
-     * a lambda function. Used on combobox for batting position selector and
+     * inside a lambda function. Used on combobox for batting position selector and
      * when choosing a file.
      * Huge thanks to luca.vercelli! (https://stackoverflow.com/a/55758047)
      * 
@@ -81,51 +88,61 @@ public class CustomButtonsView {
         Label firstName = new Label("First name:");
         form.add(firstName, 0, 1);
         TextField firstNameField = new TextField();
+        firstNameField.setId("TextField for first name");
         form.add(firstNameField, 4, 1);
 
         Label lastName = new Label("Last name:");
         form.add(lastName, 0, 2);
         TextField lastNameField = new TextField();
+        lastNameField.setId("TextField for last name");
         form.add(lastNameField, 4, 2);
 
         Label age = new Label("Age: ");
         form.add(age, 0, 3);
-        NumberTextField ageField = new NumberTextField();
+        IntegerTextField ageField = new IntegerTextField();
+        ageField.setId("TextField for Age");
         form.add(ageField, 4, 3);
 
         Label height = new Label("Height (cm): ");
         form.add(height, 0, 4);
-        NumberTextField heightField = new NumberTextField();
+        IntegerTextField heightField = new IntegerTextField();
+        heightField.setId("TextField for height");
         form.add(heightField, 4, 4);
 
         Label weight = new Label("Weight (kg): ");
         form.add(weight, 0, 5);
-        NumberTextField weighField = new NumberTextField();
+        IntegerTextField weighField = new IntegerTextField();
+        weighField.setId("TextField for weight");
         form.add(weighField, 4, 5);
 
         Label jerseyNo = new Label("Jersey Number: ");
         form.add(jerseyNo, 0, 6);
-        NumberTextField jNumberTextField = new NumberTextField();
+        IntegerTextField jNumberTextField = new IntegerTextField();
+        jNumberTextField.setId("TextField for jersey number");
         form.add(jNumberTextField, 4, 6);
 
         Label totalGamesPlayed = new Label("Total Games Played: ");
         form.add(totalGamesPlayed, 0, 7);
-        NumberTextField tgpField = new NumberTextField();
+        IntegerTextField tgpField = new IntegerTextField();
+        tgpField.setId("TextField for total games played");
         form.add(tgpField, 4, 7);
 
         Label battingLineUpLabel = new Label("Batting Line up: ");
         form.add(battingLineUpLabel, 0, 8);
-        NumberTextField bluField = new NumberTextField();
+        IntegerTextField bluField = new IntegerTextField();
+        bluField.setId("TextField for batting line up");
         form.add(bluField, 4, 8);
 
         Label currentRunRateLabel = new Label("Current Run Rate: ");
         form.add(currentRunRateLabel, 0, 9);
-        NumberTextField crrField = new NumberTextField();
+        TextField crrField = new TextField();
+        crrField.setId("TextField for current run rate");
         form.add(crrField, 4, 9);
 
         Label totalRunsLabel = new Label("Total Runs: ");
         form.add(totalRunsLabel, 0, 10);
-        NumberTextField trField = new NumberTextField();
+        IntegerTextField trField = new IntegerTextField();
+        trField.setId("TextField for total runs");
         form.add(trField, 4, 10);
 
         String battingPos[] = { "Right Hand", "Left Hand" };
@@ -136,13 +153,22 @@ public class CustomButtonsView {
         battingPosSelector.autosize();
         form.add(battingPosSelector, 4, 11);
 
+        String Position[] = { "Batsman", "Wicket Keeper", "Bowler", "All Rounder" };
+        Label positionLabel = new Label("Position");
+        ComboBox posSelector = new ComboBox<>(FXCollections.observableArrayList(Position));
+        posSelector.getSelectionModel().select(0);
+        posSelector.autosize();
+        form.add(positionLabel, 0, 12);
+        form.add(posSelector, 4, 12);
+
         Label teamNameLabel = new Label("Team Name: ");
-        form.add(teamNameLabel, 0, 12);
+        form.add(teamNameLabel, 0, 13);
         TextField tnField = new TextField();
-        form.add(tnField, 4, 12);
+        tnField.setId("TextField for team name");
+        form.add(tnField, 4, 13);
 
         Label imgLabel = new Label("Select the player picture: ");
-        form.add(imgLabel, 0, 13);
+        form.add(imgLabel, 0, 14);
         FileChooser fileChooser = new FileChooser();
         Button imgSelectButton = new Button("Select file");
         Wrapper<String> stringWrapper = new Wrapper<>(null);
@@ -156,28 +182,83 @@ public class CustomButtonsView {
             System.out.println("stringwrapper in action: " + stringWrapper.obj);
             imgURLLabel.setText(stringWrapper.obj);
         });
-        form.add(imgSelectButton, 4, 13);
+        form.add(imgSelectButton, 4, 14);
         form.add(imgURLLabel, 0, 14, 5, 1);
 
+        Label exceptionLabel = new Label("");
+        form.add(exceptionLabel, 0, 15, 5, 1);
+        GridPane.setHalignment(exceptionLabel, HPos.CENTER);
+
+        // creating hbox for the 3 buttons
         HBox buttonsBox = new HBox(10);
+        // 3 buttons
+        Button checkForm = new Button("Check player");
         Button saveBtn = new Button("Save");
         Button closeBtn = new Button("Close");
 
-        closeBtn.setOnAction(actionEvent -> {
-            System.out.println("StringWrapper: " + stringWrapper.obj);
-            stage.close();
-        });
+        // setting initial state of the saveBtn
+        saveBtn.setDisable(true);
 
-        buttonsBox.getChildren().addAll(saveBtn, closeBtn);
+        // player p will be the player created from the form
+        Player p = new Player();
+
+        // setting actions for each button
+
+        closeBtn.setOnAction(actionEvent -> stage.close());
+        checkForm.setOnAction(e -> {
+            // first I'm gonna make sure the user has filled up every text-field
+            // and has also got a valid image for player picture
+            // looking up all text fields in the form nodes
+            Set<Node> nodes = form.lookupAll(".text-field");
+            boolean emptyTextFields = false;
+            for (Node node : nodes) {
+                TextField tfNode = (TextField) node;
+                if (tfNode.getText() == "") {
+                    emptyTextFields = true;
+                }
+            }
+            if (emptyTextFields) {
+                System.out.println("At least one text-field is empty");
+                exceptionLabel.setText("First fill up every text label");
+            } else {
+                Statistics s = new Statistics();
+                try {
+                    p.setName(firstNameField.getText() + " " + lastNameField.getText());
+                    p.setAge(Integer.parseInt(ageField.getText()));
+                    p.setHeight(Integer.parseInt(heightField.getText()));
+                    p.setWeight(Integer.parseInt(weighField.getText()));
+                    p.setNum(Integer.parseInt(jNumberTextField.getText()));
+                    s.setTotalGamesPlayed(Integer.parseInt(tgpField.getText()));
+                    s.setBattingLineupNumber(Integer.parseInt(bluField.getText()));
+                    s.setBattingPos(battingPosSelector.getValue().toString());
+
+                } catch (Exception ex) {
+                    exceptionLabel.setText(ex.getMessage());
+                    System.out.println(ex.getMessage());
+                }
+                try {
+                    s.setCurrentRunRate(Double.parseDouble(crrField.getText()));
+                    saveBtn.setDisable(false);
+                    exceptionLabel.setText("You can save this player!");
+                } catch (Exception ex) {
+                    System.out.println("Error converting the double number");
+                    exceptionLabel
+                            .setText("Make sure the text format for current run rate is a double! (eg.: 2.4 etc)");
+                }
+            }
+
+        });
+        saveBtn.setOnAction(new SaveHandler(p));
+
+        buttonsBox.getChildren().addAll(checkForm, saveBtn, closeBtn);
         buttonsBox.setAlignment(Pos.BOTTOM_CENTER);
-        form.add(buttonsBox, 3, 16);
+        form.add(buttonsBox, 0, 16, 5, 1);
 
         Scene scene = new Scene(form, 500, 800);
 
         stage.setTitle("Add new player");
         stage.setScene(scene);
         stage.show();
-
     }
 
 }

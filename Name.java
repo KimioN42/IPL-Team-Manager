@@ -1,5 +1,7 @@
 /**
- *
+ * This class was made to automatically set the first and last name
+ * to upperCase, so it is standard and the same for every player.
+ * 
  * @author Kimio Nishino and Saniya Farishta
  */
 public class Name {
@@ -9,13 +11,14 @@ public class Name {
     private String lastName;
 
     // default constructor
-    public Name() { }
+    public Name() {
+    }
 
     /**
      * constructor creates player's full name
      *
      * @param firstName of the player
-     * @param lastName of the player
+     * @param lastName  of the player
      */
     public Name(String firstName, String lastName) {
         this.firstName = firstName.toUpperCase();
@@ -47,7 +50,7 @@ public class Name {
      */
     public void setName(String fullName) {
         String firstN = fullName.substring(0, fullName.indexOf(" "));
-        String lastN = fullName.substring(fullName.lastIndexOf(" ") + 1);
+        String lastN = fullName.substring(fullName.indexOf(" ") + 1, fullName.length());
         firstName = firstN;
         lastName = lastN;
         setFirstName(firstName);
@@ -56,7 +59,8 @@ public class Name {
 
     /**
      * Output the first and last name.
-     * @return 
+     * 
+     * @return
      */
     @Override
     public String toString() {

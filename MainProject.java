@@ -36,19 +36,19 @@ public class MainProject extends Application {
         // On MacOS the filepath needs to be ./datfiles/...
         // And on windows, the pathfile should start in the project folder, like this:
         // ./Java2-Project-Team-Manager/datfiles/...
-        players = datFileReader.saveFileAsPlayers("./Java2-Project-Team-Manager/datfiles/test.dat");
+        players = datFileReader.saveFileAsPlayers("./datfiles/test.dat");
 
         // Setting up both side views (left and right)
         VBox svl = LeftSideView.getSideViewLeft();
         GridPane svr = RightSideView.getSideViewRight();
 
         // borders for debugging
-        root.setStyle("-fx-border-color: red;" +
+        root.setStyle("-fx-border-color: black;" +
                 "-fx-border-insets: 5; fx-border-width: 2;" +
-                "-fx-border-style: dashed;");
+                "-fx-border-style: solid;");
 
         root.getChildren().addAll(svl, svr);
-        // HBox.setHgrow(svr, Priority.ALWAYS);
+        HBox.setHgrow(svr, Priority.ALWAYS);
 
         Scene scene = new Scene(root, 900, 600);
         stage.setTitle("RCB Management");

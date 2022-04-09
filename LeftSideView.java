@@ -1,3 +1,4 @@
+import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -11,7 +12,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -96,6 +96,9 @@ public class LeftSideView extends MainProject {
                     return true;
                 return false;
             });
+
+            playersTable.getSelectionModel().select(0);
+            selectedPlayer.set(playersTable.getSelectionModel().getSelectedItem());
         });
         SortedList<Player> slPlayer = new SortedList<>(filteredPlayerByPos);
         slPlayer.comparatorProperty().bind(playersTable.comparatorProperty());
@@ -110,8 +113,13 @@ public class LeftSideView extends MainProject {
         selectedItems.addListener(new ListChangeListener<Player>() {
             @Override
             public void onChanged(Change<? extends Player> change) {
-                selectedPlayer.set(selectedItems.get(0));
-                System.out.println("Current selected player is:" + selectedPlayer.get().getName());
+                try {
+                    selectedPlayer.set(selectedItems.get(0));
+                    System.out.println("Current selected player is:" + selectedPlayer.get().getName());
+                } catch (Exception e) {
+                    System.out.println("TableView was filtered, getting new selected player");
+                }
+
             }
         });
 
@@ -135,7 +143,7 @@ public class LeftSideView extends MainProject {
         // setting borders for debugging reasons
         sideViewLeft.setStyle("-fx-border-color: black;" +
                 "-fx-border-insets: 5; fx-border-width: 2;" +
-                "-fx-border-style: dashed;");
+                "-fx-border-style: solid;");
 
         return sideViewLeft;
     }

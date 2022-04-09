@@ -11,7 +11,7 @@ import javafx.scene.image.Image;
  */
 public class Player implements Comparable<Player> {
 
-    private Name name;
+    private Name name = new Name();
     // players jersey number
     private int num;
     private int weight;
@@ -56,28 +56,47 @@ public class Player implements Comparable<Player> {
         this.stats = s;
     }
 
+    // Will add exception handling later for each of the getters and setters
     public void setName(String n) {
         name.setName(n);
     }
 
-    public void setNum(int n) {
-        if (n > 0 && n < 100)
+    public void setNum(int n) throws Exception {
+
+        if (n > 0 && n < 100) {
             num = n;
+        } else {
+            throw new Exception("Number needs to be between 1 and 100");
+        }
+
     }
 
-    public void setWeight(int w) {
-        if (w > 0 && w < 250)
+    public void setWeight(int w) throws Exception {
+        if (w > 0 && w < 250) {
             weight = w;
+        } else {
+            throw new Exception("Weight needs to be between 1 and 250");
+        }
     }
 
-    public void setAge(int a) {
-        if (a > 0 && a < 120)
+    public void setAge(int a) throws Exception {
+        if (a > 0 && a < 120) {
             age = a;
+        } else {
+            throw new Exception("Age needs to be between 1 and 120");
+        }
     }
 
-    public void setHeight(int h) {
-        if (h > 0 && h < 250)
+    public void setHeight(int h) throws Exception {
+        if (h > 0 && h < 250) {
             height = h;
+        } else {
+            throw new Exception("Height needs to be between 1 and 250");
+        }
+    }
+
+    public void setStatistics(Statistics s) {
+        this.stats = s;
     }
 
     public String getName() {
@@ -125,7 +144,9 @@ public class Player implements Comparable<Player> {
     }
 
     /**
-     *
+     * Gets a String s that should be formatted/separated by commas,
+     * and
+     * 
      * @param s
      * @return
      */
@@ -160,7 +181,7 @@ public class Player implements Comparable<Player> {
 
             // get the image file
             pathName = temp[3];
-            file = new File("./Java2-Project-Team-Manager/imgs/" + pathName);
+            file = new File("./imgs/" + pathName);
             image = new Image(file.toURI().toString());
 
             // get position and convert to enum
@@ -194,6 +215,25 @@ public class Player implements Comparable<Player> {
                 pos, st);
         // System.out.println("Player saved from string: \n" + pl.getPlayerString());
         return pl;
+    }
+
+    public static String saveToString(Player p) {
+        String pString = "";
+        pString += p.getNum();
+        pString += "," + p.getFirstName();
+        pString += "," + p.getLastName();
+        pString += "," + p.getPath();
+        pString += "," + Position.getIntFromPosition(p.getPosition());
+        pString += "," + p.getAge();
+        pString += "," + p.getWeight();
+        pString += "," + p.getHeight();
+        pString += "," + p.getStats().getTotalRuns();
+        pString += "," + p.getStats().getBattingPos();
+        pString += "," + p.getStats().getCurrentRunRate();
+        pString += "," + p.getStats().getBattingLineupNumber();
+        pString += "," + p.getStats().getTotalGamesPlayed();
+        pString += "," + p.getStats().getTeamName();
+        return pString;
     }
 
     public String getPlayerString() {

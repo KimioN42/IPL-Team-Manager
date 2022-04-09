@@ -3,9 +3,8 @@ import javafx.scene.control.Button;
 
 /**
  * Class that generates the necessary buttons for the project
- * It is extended to the CustomButtonsView class, which generates the UI
- * and also generates the GUI or runs the methods when the buttons
- * in this class are clicked/interacted.
+ * It is extended to the CustomButtonsView class, which generates the GUI
+ * and runs the methods when the buttons in this class are clicked/interacted.
  * 
  * @author Kimio Nishino
  */
