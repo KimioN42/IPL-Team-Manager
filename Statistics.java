@@ -66,6 +66,17 @@ public class Statistics {
         this.currentRunRate = currentRunRate;
     }
 
+    public void setCurrentRunRateString(String currentRunRate) throws Exception {
+        boolean parsable = true;
+        try {
+            this.currentRunRate = Double.parseDouble(currentRunRate);
+        } catch (NumberFormatException e) {
+            parsable = false;
+        }
+        if (!parsable)
+            throw new Exception("Make sure the text format for current run rate is a double! (eg.: 2.4 etc)");
+    }
+
     public int getBattingLineupNumber() {
         return this.battingLineupNumber;
     }

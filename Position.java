@@ -46,4 +46,20 @@ public enum Position {
         }
     }
 
+    public static int getIntFromPosition(Position p) {
+        switch (p) {
+            case BATSMAN:
+                return 0;
+            case WICKETKEEPER:
+                return 1;
+            case BOWLER:
+                return 2;
+            case ALL_ROUNDER:
+                return 3;
+            case ANY_POSITION:
+                return 4;
+            default:
+                return 4;
+        }
+    }
 }

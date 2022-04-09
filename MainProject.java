@@ -19,9 +19,17 @@ import javafx.stage.Stage;
 public class MainProject extends Application {
 
     // protected datafields that are available to the subclasses of MainProject
-    static protected DatFileHandler datFileReader = new DatFileHandler();
+    static protected DatFileHandler datFileReader = new DatFileHandler("./datfiles/test.dat");
     static protected ArrayList<Player> players = new ArrayList<>();
     static protected HBox root = new HBox();
+
+    protected static boolean checkValidJerseyNum(int num) throws Exception {
+        for (Player player : players) {
+            if (player.getNum() == num)
+                throw new Exception("There is already one player with this jersey number");
+        }
+        return true;
+    }
 
     /**
      * Start method for the Team Manager project.
@@ -36,19 +44,19 @@ public class MainProject extends Application {
         // On MacOS the filepath needs to be ./datfiles/...
         // And on windows, the pathfile should start in the project folder, like this:
         // ./Java2-Project-Team-Manager/datfiles/...
-        players = datFileReader.saveFileAsPlayers("./Java2-Project-Team-Manager/datfiles/test.dat");
+        players = datFileReader.saveFileAsPlayers();
 
         // Setting up both side views (left and right)
         VBox svl = LeftSideView.getSideViewLeft();
         GridPane svr = RightSideView.getSideViewRight();
 
-        // borders for debugging
-        root.setStyle("-fx-border-color: red;" +
+        // borders
+        root.setStyle("-fx-border-color: black;" +
                 "-fx-border-insets: 5; fx-border-width: 2;" +
-                "-fx-border-style: dashed;");
+                "-fx-border-style: solid;");
 
         root.getChildren().addAll(svl, svr);
-        // HBox.setHgrow(svr, Priority.ALWAYS);
+        HBox.setHgrow(svr, Priority.ALWAYS);
 
         Scene scene = new Scene(root, 900, 600);
         stage.setTitle("RCB Management");
