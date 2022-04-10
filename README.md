@@ -25,8 +25,8 @@ You can always come back to the program to see how much your favorite player has
 
 ## Authors
 
-*Kimio Nishino
-*Saniya Farishta
+* Kimio Nishino
+* Saniya Farishta
 
 
 ## Version History
