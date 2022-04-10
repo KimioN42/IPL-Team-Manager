@@ -1,25 +1,20 @@
-import java.io.File;
-
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 /**
- * SideView class for the project.
- * This project contains the elements necessary to render the left side
- * of the application, including player list, selection and sorting by position.
+ * RightSideView class for the project.
+ * This project contains the elements necessary to render the right side
+ * of the application, including player info, stats and edit button.
  * 
  * @author Kimio Nishino and Saniya Farishta
  */
@@ -85,12 +80,13 @@ public class RightSideView extends LeftSideView {
         Text playerTeam = new Text("Team: " + selectedPlayer.get().getStats().getTeamName());
         playerTeam.setFont(Font.font("Verdana", FontWeight.MEDIUM, FontPosture.REGULAR, 15));
 
+        // everytime the selected player in the tableview is changed, it will update in
+        // the rightsideview
         selectedPlayer.addListener(new ChangeListener<Player>() {
             @Override
             public void changed(ObservableValue<? extends Player> observable, Player oldValue,
                     Player newValue) {
                 imgView.setImage(selectedPlayer.get().getImage());
-                System.out.println("Player image in rsv: " + selectedPlayer.get().getImage().getUrl());
                 playerName.setText("Name: " + selectedPlayer.get().getName());
                 playerAge.setText("Age: " + selectedPlayer.get().getAge());
                 playerHeight.setText("Height (cm): " + selectedPlayer.get().getHeight());

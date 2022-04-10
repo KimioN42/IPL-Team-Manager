@@ -10,15 +10,24 @@ import java.util.Scanner;
 
 /**
  * DatFileHandler is the class that can open and handle the .dat files.
- * It contains the methods necessary to save the player objects from .dat file;
+ * It contains the methods necessary to save, edit and remove the player objects
+ * from .dat file located at filepath;
  * 
  * @author Kimio Nishino and Saniya Farishta
+ * 
  */
 public class DatFileHandler {
 
     private File file;
     private String filepath;
 
+    /**
+     * Constructor for the DatFileHandler class;
+     * 
+     * @author Kimio Nishino and Saniya Farishta
+     * @param filepath - string containing the filepath in which the .dat file will
+     *                 be located
+     */
     public DatFileHandler(String filepath) {
         this.file = new File(filepath);
         this.filepath = filepath;
@@ -26,7 +35,8 @@ public class DatFileHandler {
 
     /**
      * This method is responsible for opening the file located at the
-     * param 'filepath' and saving every
+     * param 'filepath' and saving every line in the file as a player object inside
+     * an ArrayList<Player>.
      * 
      * @author Kimio Nishino and Saniya Farishta
      * 
@@ -49,8 +59,8 @@ public class DatFileHandler {
     }
 
     /**
-     * This method is responsible for opening the file located at the
-     * param 'filepath' and saving every
+     * This method is responsible for appending the playerString at the end of the
+     * .dat file.
      * 
      * @author Kimio Nishino and Saniya Farishta
      * @param playerString - String containing all the info from the player to be
@@ -69,6 +79,15 @@ public class DatFileHandler {
         }
     }
 
+    /**
+     * This method is responsible for editing the given playerString inside the .dat
+     * file. It searches for the player using the Num value of the player, that acts
+     * as an ID;
+     * 
+     * @author Kimio Nishino and Saniya Farishta
+     * @param playerString - String containing all the info from the player to be
+     *                     added to the file
+     */
     public void editPlayer(String playeString) {
         try {
             System.out.println("Player string to be edited: ");
@@ -106,11 +125,22 @@ public class DatFileHandler {
 
     }
 
+    /**
+     * This method is responsible for deleting the given playerNum inside the .dat
+     * file. It searches for the player using the Num value of the player, that acts
+     * as an ID;
+     * 
+     * @author Kimio Nishino and Saniya Farishta
+     * @param playerNum - int value containing the Num value of the player to be
+     *                  deleted.
+     */
     public void removePlayer(int playerNum) {
         System.out.println("Deleting line of player number " + playerNum);
         try {
             BufferedReader reader = new BufferedReader(new FileReader(file));
             StringBuffer newFileContent = new StringBuffer();
+            // the next few lines make baby jesus cry
+            // i'm sorry mom
             boolean isNextTarget = false;
             boolean isPreviousTarget = false;
             boolean firstLine = true;

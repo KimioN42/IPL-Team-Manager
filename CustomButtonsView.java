@@ -8,16 +8,13 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -26,6 +23,9 @@ import javafx.stage.Stage;
 
 /**
  * Class that generates the GUI and methods for buttons when clicked.
+ * This class is extended to the LeftSideView, which contains the
+ * ObservableProperty selectedPlayer, that is updated every time the user clicks
+ * on a new item in the tableview.
  * 
  * @author Kimio Nishino
  */
@@ -39,7 +39,7 @@ public class CustomButtonsView extends LeftSideView {
      * Huge thanks to Bukhard! (https://stackoverflow.com/a/18959399/5033494)
      * 
      * @author Bukhard
-     * @modified by Kimio Nishino
+     * 
      */
     public static class IntegerTextField extends TextField {
         @Override
@@ -68,7 +68,7 @@ public class CustomButtonsView extends LeftSideView {
      * Huge thanks to luca.vercelli! (https://stackoverflow.com/a/55758047)
      * 
      * @author luca.vercelli
-     * @modified by Kimio Nishino
+     * 
      */
     public static class Wrapper<T> {
         public T obj;
@@ -78,6 +78,14 @@ public class CustomButtonsView extends LeftSideView {
         }
     }
 
+    /**
+     * GUI for opening a new stage with a form-like gridPane with all the textFields
+     * to create a new player. The GridPane also contains a checkButton, which
+     * validates if all the information entered by the user is in a proper way to
+     * create the new player.
+     * 
+     * @author Kimio Nishino and Saniya Farishta
+     */
     protected static void openAddWindow() {
         GridPane form = new GridPane();
 
@@ -295,6 +303,17 @@ public class CustomButtonsView extends LeftSideView {
         stage.show();
     }
 
+    /**
+     * GUI for opening a new stage with a form-like gridPane with all the textFields
+     * to EDIT a player. All textfields are pre-filled up as soon as you open this
+     * stage, and it contains the info related to the selectedPlayer in the
+     * LeftSideView.
+     * The GridPane also contains a checkButton, which
+     * validates if all the information entered by the user is in a proper way to
+     * edit the currently selected player.
+     * 
+     * @author Kimio Nishino and Saniya Farishta
+     */
     protected static void openEditWindow() {
         GridPane form = new GridPane();
 
@@ -481,6 +500,8 @@ public class CustomButtonsView extends LeftSideView {
                     p.setWeight(Integer.parseInt(weightField.getText()));
                     p.setNum(Integer.parseInt(jNumberTextField.getText()));
                     p.setPosition(Position.getPositionFromInt(posSelector.getSelectionModel().getSelectedIndex()));
+                    System.out.println(
+                            "Current selected index is: " + posSelector.getSelectionModel().getSelectedIndex());
                     p.setPath(imgNameWrapper.obj);
                     s.setTotalGamesPlayed(Integer.parseInt(tgpField.getText()));
                     s.setBattingLineupNumber(Integer.parseInt(bluField.getText()));
@@ -531,6 +552,17 @@ public class CustomButtonsView extends LeftSideView {
         stage.show();
     }
 
+    /**
+     * GUI for opening a new stage with a form-like gridPane with all the textFields
+     * to EDIT a player. All textfields are pre-filled up as soon as you open this
+     * stage, and it contains the info related to the selectedPlayer in the
+     * LeftSideView.
+     * The GridPane also contains a checkButton, which
+     * validates if all the information entered by the user is in a proper way to
+     * edit the currently selected player.
+     * 
+     * @author Kimio Nishino and Saniya Farishta
+     */
     protected static void openDelWindow() {
         GridPane alert = new GridPane();
         alert.setAlignment(Pos.CENTER);

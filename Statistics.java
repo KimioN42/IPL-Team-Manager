@@ -1,4 +1,9 @@
-
+/**
+ * Class containing all statistics for the player, such as total runs, batting
+ * position etc.
+ * 
+ * @author Kimio Nishino and Saniya
+ */
 public class Statistics {
 
     // data members for player`s statistics
