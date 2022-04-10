@@ -30,6 +30,14 @@ public class LeftSideView extends MainProject {
     protected static ObjectProperty<Player> selectedPlayer = new SimpleObjectProperty<>();
     protected static ObservableList<Player> olPlayers;
 
+    protected static boolean checkValidJerseyNum(int num) throws Exception {
+        for (Player player : olPlayers) {
+            if (player.getNum() == num)
+                throw new Exception("There is already one player with this jersey number");
+        }
+        return true;
+    }
+
     /**
      * Method responsible for generating all the correct data from the sideleftview
      * 

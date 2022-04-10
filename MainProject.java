@@ -23,14 +23,6 @@ public class MainProject extends Application {
     static protected ArrayList<Player> players = new ArrayList<>();
     static protected HBox root = new HBox();
 
-    protected static boolean checkValidJerseyNum(int num) throws Exception {
-        for (Player player : players) {
-            if (player.getNum() == num)
-                throw new Exception("There is already one player with this jersey number");
-        }
-        return true;
-    }
-
     /**
      * Start method for the Team Manager project.
      * The start method puts together all views and nodes to render
