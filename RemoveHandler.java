@@ -11,7 +11,6 @@ public class RemoveHandler extends CustomButtonsView implements EventHandler<Act
 
     private int lookForPlayer() {
         for (int i = 0; i < olPlayers.size(); i++) {
-            System.out.println("Player " + players.get(i).getName() + ", player num: " + players.get(i).getNum());
             if (players.get(i).getNum() == player.getNum())
                 return i;
         }

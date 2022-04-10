@@ -75,15 +75,26 @@ public class DatFileHandler {
             System.out.println(playeString);
             BufferedReader brFile = new BufferedReader(new FileReader(file));
             StringBuffer inputBuffer = new StringBuffer();
-            String line;
 
-            while ((line = brFile.readLine()) != null) {
-                inputBuffer.append(line);
-                inputBuffer.append(System.lineSeparator());
+            // getting the player's jersey number to edit
+            String temp[] = playeString.split(",");
+            int playerNum = Integer.parseInt(temp[0]);
+
+            for (String next, line = brFile.readLine(); line != null; line = next) {
+                next = brFile.readLine();
+                String splitLine[] = line.split(",");
+                // when it finds the player with the same jerseyNumber it's trying to edit
+                // it will append the new playerString
+                if (Integer.parseInt(splitLine[0]) == playerNum)
+                    inputBuffer.append(playeString);
+                else
+                    inputBuffer.append(line);
+                if (next != null)
+                    inputBuffer.append(System.lineSeparator());
             }
             brFile.close();
             String inputStr = inputBuffer.toString();
-            System.out.println("Debugging: " + inputStr);
+            // System.out.println("Debugging: " + inputStr);
 
             FileOutputStream fileOut = new FileOutputStream(file);
             fileOut.write(inputStr.getBytes());
@@ -100,21 +111,37 @@ public class DatFileHandler {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(file));
             StringBuffer newFileContent = new StringBuffer();
+            boolean isNextTarget = false;
+            boolean isPreviousTarget = false;
+            boolean firstLine = true;
             for (String next, line = reader.readLine(); line != null; line = next) {
                 next = reader.readLine();
-                System.out.println("Current line: " + line);
-                System.out.println("Next line: " + next);
-
-                String temp[] = line.split(",");
-
-                if (Integer.parseInt(temp[0]) != playerNum)
-                    newFileContent.append(line);
-                if (next != null) {
-                    String nextTemp[] = line.split(",");
-                    if (Integer.parseInt(nextTemp[0]) != playerNum)
-                        newFileContent.append(System.lineSeparator());
+                // when our target string is not in the last line, we create a linebreak
+                if (isNextTarget && next != null) {
+                    newFileContent.append(System.lineSeparator());
+                    isNextTarget = false;
+                    isPreviousTarget = true;
                 }
-
+                // edge case: player to be deleted is last line in file
+                else if (isNextTarget && next == null) {
+                    System.out.println("Super duper edge case");
+                } else if (!firstLine && !isPreviousTarget) {
+                    newFileContent.append(System.lineSeparator());
+                }
+                String temp[] = line.split(",");
+                // if the current line is not the line we're looking for
+                if (Integer.parseInt(temp[0]) != playerNum) {
+                    newFileContent.append(line);
+                    // and if the next line is not null
+                    if (next != null) {
+                        String tempNext[] = next.split(",");
+                        // check if the next line is the one we're looking for
+                        if (Integer.parseInt(tempNext[0]) == playerNum)
+                            isNextTarget = true;
+                    }
+                    firstLine = false;
+                    isPreviousTarget = false;
+                }
             }
             reader.close();
             System.out.println("String to be saved to file: " +

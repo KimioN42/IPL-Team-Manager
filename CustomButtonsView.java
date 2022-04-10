@@ -405,10 +405,11 @@ public class CustomButtonsView extends LeftSideView {
         FileChooser fileChooser = new FileChooser();
         Button imgSelectButton = new Button("Select file");
         Wrapper<String> filePathWrapper = new Wrapper<>(selectedPlayer.get().getPath());
-        Wrapper<String> imgNameWrapper = new Wrapper<String>(null);
+        Wrapper<String> imgNameWrapper = new Wrapper<String>(selectedPlayer.get().getPath());
         Label imgURLLabel = new Label(selectedPlayer.get().getPath());
         imgURLLabel.setWrapText(true);
         GridPane.setHalignment(imgURLLabel, HPos.CENTER);
+        Wrapper<Boolean> changedImage = new Wrapper<>(false);
         imgSelectButton.setOnAction(e -> {
             try {
                 Stage fileSelectorStage = new Stage();
@@ -420,7 +421,9 @@ public class CustomButtonsView extends LeftSideView {
                 imgURLLabel.setText("Select an image inside the imgs folder of the project!");
                 filePathWrapper.obj = selectedFile.getPath();
                 imgNameWrapper.obj = selectedFile.getName();
+                System.out.println("Image file chose: " + imgNameWrapper.obj);
                 imgURLLabel.setText("Image selected: " + imgNameWrapper.obj);
+                changedImage.obj = true;
             } catch (Exception ex) {
                 System.out.println("Error in filechooser");
                 System.out.println("Value of the stringwrapper:" + filePathWrapper.obj);
@@ -486,7 +489,12 @@ public class CustomButtonsView extends LeftSideView {
                     s.setTeamName(tnField.getText());
                     s.setCurrentRunRate(Double.parseDouble(crrField.getText()));
                     saveBtn.setDisable(false);
-                    File imgFile = new File(filePathWrapper.obj);
+                    File imgFile;
+                    if (changedImage.obj)
+                        imgFile = new File(filePathWrapper.obj);
+                    else
+                        imgFile = new File("./imgs/" + filePathWrapper.obj);
+
                     Image pImage = new Image(imgFile.toURI().toString());
                     p.setImage(pImage);
                     p.setStatistics(s);

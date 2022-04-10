@@ -90,6 +90,7 @@ public class RightSideView extends LeftSideView {
             public void changed(ObservableValue<? extends Player> observable, Player oldValue,
                     Player newValue) {
                 imgView.setImage(selectedPlayer.get().getImage());
+                System.out.println("Player image in rsv: " + selectedPlayer.get().getImage().getUrl());
                 playerName.setText("Name: " + selectedPlayer.get().getName());
                 playerAge.setText("Age: " + selectedPlayer.get().getAge());
                 playerHeight.setText("Height (cm): " + selectedPlayer.get().getHeight());
