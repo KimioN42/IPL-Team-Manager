@@ -16,6 +16,13 @@ public enum Position {
         this.label = label;
     }
 
+    /**
+     * Gets the position as a string.
+     * 
+     * @author Kimio Nishino and Saniya Farishta
+     * @param p = position
+     * @return position.value() as string
+     */
     public String getPositionString(Position p) {
         switch (p) {
             case BATSMAN:
@@ -31,6 +38,13 @@ public enum Position {
         }
     }
 
+    /**
+     * Returns a position, given an integer;
+     * 
+     * @author Kimio Nishino and Saniya Farishta
+     * @param p - int you want to check
+     * @return the position relative to that int
+     */
     public static Position getPositionFromInt(int p) {
         switch (p) {
             case 0:
@@ -46,6 +60,13 @@ public enum Position {
         }
     }
 
+    /**
+     * Returns an integer, given a position;
+     * 
+     * @author Kimio Nishino and Saniya Farishta
+     * @param p - position you want to check
+     * @return the int relative to that position
+     */
     public static int getIntFromPosition(Position p) {
         switch (p) {
             case BATSMAN:

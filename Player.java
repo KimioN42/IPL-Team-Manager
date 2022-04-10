@@ -56,7 +56,6 @@ public class Player implements Comparable<Player> {
         this.stats = s;
     }
 
-    // Will add exception handling later for each of the getters and setters
     public void setName(String n) {
         name.setName(n);
     }

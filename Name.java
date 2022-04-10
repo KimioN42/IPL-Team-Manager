@@ -10,12 +10,16 @@ public class Name {
     private String firstName;
     private String lastName;
 
-    // default constructor
+    /**
+     * Default constructor
+     * 
+     * @author Kimio Nishino and Saniya Farishta
+     */
     public Name() {
     }
 
     /**
-     * constructor creates player's full name
+     * Constructor creates player's full name
      *
      * @param firstName of the player
      * @param lastName  of the player

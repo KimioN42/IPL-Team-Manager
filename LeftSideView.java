@@ -1,4 +1,3 @@
-import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -8,7 +7,6 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.SelectionMode;
@@ -22,14 +20,39 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
+/**
+ * Class LeftSideView. It generates all the elements necessary to initialize the
+ * leftSideView portion of our application, including the tableview, buttons and
+ * logo. It also contains the logic for sorting and filtering the tableview,
+ * using the combobox.
+ * 
+ * @author Kimio Nishino and Saniya Farishta
+ * 
+ */
 public class LeftSideView extends MainProject {
 
     /**
-     * Variable necessary to add a listener everytime it changes.
+     * Both of these variables are necessary to add a listener everytime it changes.
+     * So everytime the user selects a player in the tableview, the selectedplayer
+     * will be updated, and everytime the user adds/edits/deletes a player, the
+     * observablelist of players will also be updated.
      */
     protected static ObjectProperty<Player> selectedPlayer = new SimpleObjectProperty<>();
     protected static ObservableList<Player> olPlayers;
 
+    /**
+     * Method used to check if a given number is already being used by any player in
+     * the observableList as the jerseyNumber. This is important because if two
+     * players were to have the same jerseyNumbers, it would be hard to know which
+     * one of them to edit or delete later. We are using the Player.getNum() as an
+     * ID to identify each player.
+     * 
+     * @param num - int contaning the number you want to check inside the
+     *            observableList of players
+     * @return true if there's no other player with the given num.
+     * @throws Exception with the proper message in the message field, explaining
+     *                   what happened.
+     */
     protected static boolean checkValidJerseyNum(int num) throws Exception {
         for (Player player : olPlayers) {
             if (player.getNum() == num)
@@ -39,7 +62,7 @@ public class LeftSideView extends MainProject {
     }
 
     /**
-     * Method responsible for generating all the correct data from the sideleftview
+     * Method responsible for generating all the correct data from the sideleftview.
      * 
      * @author Kimio Nishino and Saniya Farishta
      * @return sideViewLeft - VBox containing all the elements in the sideView of
