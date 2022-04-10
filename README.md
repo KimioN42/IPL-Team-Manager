@@ -20,28 +20,13 @@ You can always come back to the program to see how much your favorite player has
 
 ### Installing
 
-* You can just clone this repository and run the application from the main method located in the MainProject class. As long as you have jdk-full version 17 or higher with javafx support
-* this code will work just fine. The database file is located in the datfiles folder inside this project folder;
+* You can clone this repository and run the application from the main method located in the MainProject class. As long as you have jdk-full version 17 or higher with javafx support this code will work just fine. The database file is located in the datfiles folder inside this project folder;
 
-### Executing program
-
-* How to run the program
-* Step-by-step bullets
-```
-code blocks for commands
-```
-
-## Help
-
-Any advise for common problems or issues.
-```
-command to run if program contains helper info
-```
 
 ## Authors
 
-Kimio Nishino
-Saniya Farishta
+*Kimio Nishino
+*Saniya Farishta
 
 
 ## Version History
