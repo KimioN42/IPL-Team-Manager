@@ -10,22 +10,20 @@ public class RemoveHandler extends CustomButtonsView implements EventHandler<Act
     }
 
     private int lookForPlayer() {
-        for (int i = 0; i < players.size(); i++) {
+        for (int i = 0; i < olPlayers.size(); i++) {
             if (players.get(i).getNum() == player.getNum())
-                System.out.println("Index you're looking for is: " + i);
+                return i;
         }
-        return 0;
+        return -1;
     }
 
     @Override
     public void handle(ActionEvent actionEvent) {
         System.out.println("Player you want to delete: " + player.getName());
-        lookForPlayer();
-        // olPlayers.remove(olPlayers.indexOf(player));
-        // players.remove(players.indexOf(player));
-        System.out.println("current players in observable list:");
-        for (Player player : olPlayers) {
-            System.out.println(player.getName());
-        }
+        int indexRemove = lookForPlayer();
+        System.out.println("Index to be removed in observable list: " + indexRemove);
+        olPlayers.remove(indexRemove);
+        datFileReader.removePlayer(player.getNum());
+        stage.close();
     }
 }

@@ -9,10 +9,20 @@ public class EditHandler extends CustomButtonsView implements EventHandler<Actio
         this.player = p;
     }
 
+    private int lookForPlayer() {
+        for (int i = 0; i < olPlayers.size(); i++) {
+            if (players.get(i).getNum() == player.getNum())
+                return i;
+        }
+        return -1;
+    }
+
     @Override
     public void handle(ActionEvent actionEvent) {
-        System.out.println("Gonna try to edit the player now");
+        System.out.println("Editing player " + player.getName());
         datFileReader.editPlayer(player.saveToString());
+        int indexToEdit = lookForPlayer();
+        olPlayers.set(indexToEdit, player);
         stage.close();
     }
 }

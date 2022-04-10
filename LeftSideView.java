@@ -132,9 +132,7 @@ public class LeftSideView extends MainProject {
         }
 
         HBox buttonsBox = new HBox(10);
-        Button deleteBtn = CustomButtons.getDelBtn();
-        deleteBtn.setOnAction(new RemoveHandler(selectedPlayer.get()));
-        buttonsBox.getChildren().addAll(CustomButtons.getAddBtn(), deleteBtn);
+        buttonsBox.getChildren().addAll(CustomButtons.getAddBtn(), CustomButtons.getDelBtn());
         buttonsBox.setAlignment(Pos.CENTER);
 
         // SideView with team logo, players and search bar

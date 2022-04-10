@@ -18,6 +18,7 @@ public class CustomButtons extends CustomButtonsView {
 
     public static Button getDelBtn() {
         Button deleteBtn = new Button("Delete player");
+        deleteBtn.setOnAction(e -> openDelWindow());
         return deleteBtn;
     }
 
